@@ -22,6 +22,9 @@ public class User {
     @LastModifiedDate
     private Date lastUpdated;
 
+    //--!! NOTICE: password need for this entity
+    //--When Wenxuan figure out how to store password this part should be fixed
+
     public User(String userName, String title) {
         this.userName = userName;
         this.title = title;
