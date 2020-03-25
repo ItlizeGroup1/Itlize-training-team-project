@@ -1,8 +1,8 @@
 package com.itlize.Korera.repositories;
 
 import com.itlize.Korera.dbModels.ProjectToResource;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProjectToResourceRepository extends CrudRepository<ProjectToResource, Integer> {
+public interface ProjectToResourceRepository extends JpaRepository<ProjectToResource, Integer> {
 
 }
