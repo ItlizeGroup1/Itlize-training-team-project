@@ -5,6 +5,10 @@ import org.springframework.data.annotation.CreatedDate;
 import javax.persistence.*;
 import java.sql.Date;
 
+
+/*
+!!NOTICE: If user cannot share project then this table is unnecessary
+ */
 @Entity
 public class UserToProject {
     @Id
