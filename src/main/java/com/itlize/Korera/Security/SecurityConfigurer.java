@@ -1,6 +1,8 @@
 package com.itlize.Korera.Security;
 
+import com.itlize.Korera.JwtAuthenticationFilter;
 import com.itlize.Korera.Service.MyUserDetailService;
+import com.itlize.Korera.Utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +23,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebSecurity
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Autowired
+    private JwtUtils tokenProvider;
+
+    @Autowired
     private MyUserDetailService myUserDetailService;
+
+    @Bean
     public PasswordEncoder passwordEncoder (){
         return new BCryptPasswordEncoder();
     }
@@ -44,6 +51,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .formLogin().loginPage("/users/login").and()
                 .httpBasic().and()
                 .csrf().disable();
+
+        http.addFilter(new JwtAuthenticationFilter(authenticationManager(), tokenProvider));
     }
 
     @Bean

@@ -29,6 +29,17 @@ public class User {
     @Column(name = "role")
     private Role role;
 
+    @Transient
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public User() {
     }
 
