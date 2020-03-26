@@ -15,19 +15,21 @@ public class UserToProject {
     @GeneratedValue
     private Integer id;
 
-    @ManyToOne(targetEntity = User.class,cascade=CascadeType.ALL)
-    private User ower;
+    @ManyToOne(targetEntity = User2.class,cascade=CascadeType.ALL)
+    private User2 ower;
 
-    @ManyToOne(targetEntity = Project.class,cascade = CascadeType.ALL)
-    private Project projectId;
+    @ManyToOne(targetEntity = Project1.class,cascade = CascadeType.ALL)
+    private Project1 projectId;
 
     @CreatedDate
     private Date time_created;
 
-    public UserToProject(User ower, Project projectId) {
+    public UserToProject(User2 owner, Project1 projectId) {
         this.ower = ower;
         this.projectId = projectId;
     }
+
+    public UserToProject(){};
 
     public Integer getId() {
         return id;
@@ -37,19 +39,19 @@ public class UserToProject {
         this.id = id;
     }
 
-    public User getOwer() {
+    public User2 getOwer() {
         return ower;
     }
 
-    public void setOwer(User ower) {
+    public void setOwer(User2 ower) {
         this.ower = ower;
     }
 
-    public Project getProjectId() {
+    public Project1 getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(Project projectId) {
+    public void setProjectId(Project1 projectId) {
         this.projectId = projectId;
     }    public Date getTime_created() {
         return time_created;

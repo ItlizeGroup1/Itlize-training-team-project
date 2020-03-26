@@ -26,6 +26,8 @@ public class Project1 {
         this.projectName = projectName;
     }
 
+    public Project1(){};
+
     public Integer getId() {
         return id;
     }

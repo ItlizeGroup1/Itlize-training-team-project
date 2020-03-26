@@ -14,11 +14,13 @@ public class ProjectToResource {
     @CreatedDate
     private Date time_created;
 
-    @ManyToOne(targetEntity = Project.class, cascade = CascadeType.ALL)
-    private Project projectId;
+    @ManyToOne(targetEntity = Project1.class, cascade = CascadeType.ALL)
+    private Project1 projectId;
 
-    @ManyToOne(targetEntity = Resource.class,cascade = CascadeType.ALL)
-    private Resource resourceId;
+    @ManyToOne(targetEntity = Resource1.class,cascade = CascadeType.ALL)
+    private Resource1 resourceId;
+
+    public ProjectToResource(){};
 
     public Integer getId() {
         return id;
@@ -36,23 +38,23 @@ public class ProjectToResource {
         this.time_created = time_created;
     }
 
-    public Project getProjectId() {
+    public Project1 getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(Project projectId) {
+    public void setProjectId(Project1 projectId) {
         this.projectId = projectId;
     }
 
-    public Resource getResourceId() {
+    public Resource1 getResourceId() {
         return resourceId;
     }
 
-    public void setResourceId(Resource resourceId) {
+    public void setResourceId(Resource1 resourceId) {
         this.resourceId = resourceId;
     }
 
-    public ProjectToResource(Project projectId, Resource resourceId) {
+    public ProjectToResource(Project1 projectId, Resource1 resourceId) {
         this.projectId = projectId;
         this.resourceId = resourceId;
     }

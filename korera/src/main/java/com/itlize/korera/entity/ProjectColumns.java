@@ -17,15 +17,17 @@ public class ProjectColumns {
     @LastModifiedDate
     private Date lastUpdated;
 
-    @ManyToOne(targetEntity = Project.class, cascade = CascadeType.ALL)
-    private Project projectId;
+    @ManyToOne(targetEntity = Project1.class, cascade = CascadeType.ALL)
+    private Project1 projectId;
 
     private String columnName;
 
-    public ProjectColumns(Project projectId, String columnName) {
+    public ProjectColumns(Project1 projectId, String columnName) {
         this.projectId = projectId;
         this.columnName = columnName;
     }
+
+    public ProjectColumns(){};
 
     public Integer getId() {
         return id;
@@ -51,11 +53,11 @@ public class ProjectColumns {
         this.lastUpdated = lastUpdated;
     }
 
-    public Project getProjectId() {
+    public Project1 getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(Project projectId) {
+    public void setProjectId(Project1 projectId) {
         this.projectId = projectId;
     }
 

@@ -17,17 +17,19 @@ public class ResourceDetails {
     @LastModifiedDate
     private Date lastUpdated;
 
-    @ManyToOne(targetEntity = Resource.class,cascade = CascadeType.ALL)
-    private Resource resourceId;
+    @ManyToOne(targetEntity = Resource1.class,cascade = CascadeType.ALL)
+    private Resource1 resourceId;
 
     private String columnName;
     private String columnValue;
 
-    public ResourceDetails(Resource resourceId, String columnName, String columnValue) {
+    public ResourceDetails(Resource1 resourceId, String columnName, String columnValue) {
         this.resourceId = resourceId;
         this.columnName = columnName;
         this.columnValue = columnValue;
     }
+
+    public ResourceDetails(){};
 
     public Integer getId() {
         return id;
@@ -53,11 +55,11 @@ public class ResourceDetails {
         this.lastUpdated = lastUpdated;
     }
 
-    public Resource getResourceId() {
+    public Resource1 getResourceId() {
         return resourceId;
     }
 
-    public void setResourceId(Resource resourceId) {
+    public void setResourceId(Resource1 resourceId) {
         this.resourceId = resourceId;
     }
 
