@@ -1,39 +1,39 @@
 package com.itlize.Korera.Controller;
 
 
-import com.itlize.Korera.Dao.UserRepository;
-import com.itlize.Korera.Entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
+import com.itlize.Korera.Entity.Role;
+import com.itlize.Korera.Entity.User;
+import com.itlize.Korera.Service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 
 @RestController
-@RequestMapping("hello")
+@RequestMapping("/users")
 public class UserController {
     @Autowired
-    private UserRepository repository;
+    private UserService userService;
 
 
-
-    @RequestMapping("/getUser")
-    public User getUser() {
-        User user = new User();
-        user.setUsername("wenxuan liu");
-        user.setPassword("1234");
-        return user;
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody User user) {
+        if (userService.findByUsername(user.getUsername()) != null) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        user.setRole(Role.USER);
+        return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
     }
 
-    @RequestMapping("/creatUser")
-    public User create()  {
-        User user = new User();
-        user.setUsername("Wenxuan Liu");
-        user.setPassword("123456");
-        return repository.save(user);
+    @GetMapping("/login")
+    public ResponseEntity<?> login (Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.ok(principal);
+        }
+        return new ResponseEntity<>(userService.findByUsername(principal.getName()), HttpStatus.OK);
     }
-
-
 }
