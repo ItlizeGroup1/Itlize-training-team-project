@@ -24,6 +24,9 @@ public class Resource {
     private String resourceName;
      */
 
+    public Resource() {
+    }
+
     public Integer getId() {
         return id;
     }

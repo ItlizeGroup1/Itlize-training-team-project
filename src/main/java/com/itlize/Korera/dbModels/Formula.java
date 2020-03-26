@@ -17,14 +17,20 @@ public class Formula {
     @LastModifiedDate
     private Date lastUpdated;
 
+
+
     @ManyToOne(targetEntity = Project.class,cascade = CascadeType.ALL)
     private Project projectId;
 
+    private String columnName;
     private String formula;
 
+    public Formula() {
+    }
 
-    public Formula(Project projectId, String formula) {
+    public Formula(Project projectId, String columnName, String formula) {
         this.projectId = projectId;
+        this.columnName = columnName;
         this.formula = formula;
     }
 

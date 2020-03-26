@@ -11,32 +11,34 @@ import java.sql.Date;
 @Entity
 public class User {
     @Id
-    @GeneratedValue
-    private Integer id;
-
     private String userName;
-    private String title;
 
     @CreatedDate
     private Date timeCreated;
     @LastModifiedDate
     private Date lastUpdated;
 
-    //--!! NOTICE: password need for this entity
-    //--When Wenxuan figure out how to store password this part should be fixed
+    private String title;
+    private String password;
 
-    public User(String userName, String title) {
+    public User() {
+    }
+
+    public User(String userName, String title, String passwrod) {
+        this.password = passwrod;
         this.userName = userName;
         this.title = title;
     }
 
-    public Integer getId() {
-        return id;
+    public String getPassword() {
+        return password;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setPassword(String password) {
+        this.password = password;
     }
+
+
 
     public String getUserName() {
         return userName;

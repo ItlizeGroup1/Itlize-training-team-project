@@ -22,6 +22,9 @@ public class ProjectColumns {
 
     private String columnName;
 
+    public ProjectColumns() {
+    }
+
     public ProjectColumns(Project projectId, String columnName) {
         this.projectId = projectId;
         this.columnName = columnName;

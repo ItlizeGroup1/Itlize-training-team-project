@@ -23,6 +23,9 @@ public class ResourceDetails {
     private String columnName;
     private String columnValue;
 
+    public ResourceDetails() {
+    }
+
     public ResourceDetails(Resource resourceId, String columnName, String columnValue) {
         this.resourceId = resourceId;
         this.columnName = columnName;

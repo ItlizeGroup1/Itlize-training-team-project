@@ -13,7 +13,7 @@ public class Project {
     private Integer id;
 
     @ManyToOne(targetEntity = User.class,cascade= CascadeType.ALL)
-    private User ower;
+    private User owner;
     private String projectName;
 
     @CreatedDate
@@ -21,8 +21,11 @@ public class Project {
     @LastModifiedDate
     private Date lastUpdated;
 
-    public Project(User ower, String projectName) {
-        this.ower = ower;
+    public Project() {
+    }
+
+    public Project(User owner, String projectName) {
+        this.owner = owner;
         this.projectName = projectName;
     }
 
@@ -35,11 +38,11 @@ public class Project {
     }
 
     public User getOwer() {
-        return ower;
+        return owner;
     }
 
     public void setOwer(User ower) {
-        this.ower = ower;
+        this.owner = ower;
     }
 
     public String getProjectName() {

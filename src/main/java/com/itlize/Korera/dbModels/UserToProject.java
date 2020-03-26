@@ -24,6 +24,9 @@ public class UserToProject {
     @CreatedDate
     private Date time_created;
 
+    public UserToProject() {
+    }
+
     public UserToProject(User ower, Project projectId) {
         this.ower = ower;
         this.projectId = projectId;

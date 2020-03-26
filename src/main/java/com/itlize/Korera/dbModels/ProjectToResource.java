@@ -20,6 +20,13 @@ public class ProjectToResource {
     @ManyToOne(targetEntity = Resource.class,cascade = CascadeType.ALL)
     private Resource resourceId;
 
+    public ProjectToResource() {
+    }
+    public ProjectToResource(Project projectId, Resource resourceId) {
+        this.projectId = projectId;
+        this.resourceId = resourceId;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -52,8 +59,5 @@ public class ProjectToResource {
         this.resourceId = resourceId;
     }
 
-    public ProjectToResource(Project projectId, Resource resourceId) {
-        this.projectId = projectId;
-        this.resourceId = resourceId;
-    }
+
 }
