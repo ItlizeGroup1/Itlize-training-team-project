@@ -3,11 +3,13 @@ package com.itlize.Korera.dbModels;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.sql.Date;
 
-@Entity
-public class Formula {
+public class ResourceColumns {
     @Id
     @GeneratedValue
     private Integer id;
@@ -17,21 +19,17 @@ public class Formula {
     @LastModifiedDate
     private Date lastUpdated;
 
-
-
-    @ManyToOne(targetEntity = Project.class,cascade = CascadeType.ALL)
-    private Project projectId;
+    @ManyToOne(targetEntity = Resource.class, cascade = CascadeType.ALL)
+    private Resource resource;
 
     private String columnName;
-    private String formula;
 
-    public Formula() {
+    public ResourceColumns() {
     }
 
-    public Formula(Project projectId, String columnName, String formula) {
-        this.projectId = projectId;
+    public ResourceColumns(Resource resource, String columnName) {
+        this.resource = resource;
         this.columnName = columnName;
-        this.formula = formula;
     }
 
     public Integer getId() {
@@ -58,19 +56,19 @@ public class Formula {
         this.lastUpdated = lastUpdated;
     }
 
-    public Project getProjectId() {
-        return projectId;
+    public Resource getResource() {
+        return resource;
     }
 
-    public void setProjectId(Project projectId) {
-        this.projectId = projectId;
+    public void setResource(Resource resource) {
+        this.resource = resource;
     }
 
-    public String getFormula() {
-        return formula;
+    public String getColumnName() {
+        return columnName;
     }
 
-    public void setFormula(String formula) {
-        this.formula = formula;
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
     }
 }

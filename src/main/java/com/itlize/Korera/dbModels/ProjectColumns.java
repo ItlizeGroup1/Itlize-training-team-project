@@ -8,6 +8,7 @@ import java.sql.Date;
 
 @Entity
 public class ProjectColumns {
+
     @Id
     @GeneratedValue
     private Integer id;
@@ -22,12 +23,40 @@ public class ProjectColumns {
 
     private String columnName;
 
+    @Enumerated(EnumType.STRING)
+    private ProjectColumnEnum type;
+
+    private String formula;
+
+    public ProjectColumns(Project projectId, String columnName, ProjectColumnEnum type, String formula) {
+        this.projectId = projectId;
+        this.columnName = columnName;
+        this.type = type;
+        this.formula = formula;
+    }
+
     public ProjectColumns() {
     }
 
     public ProjectColumns(Project projectId, String columnName) {
         this.projectId = projectId;
         this.columnName = columnName;
+    }
+
+    public ProjectColumnEnum getType() {
+        return type;
+    }
+
+    public void setType(ProjectColumnEnum type) {
+        this.type = type;
+    }
+
+    public String getFormula() {
+        return formula;
+    }
+
+    public void setFormula(String formula) {
+        this.formula = formula;
     }
 
     public Integer getId() {
