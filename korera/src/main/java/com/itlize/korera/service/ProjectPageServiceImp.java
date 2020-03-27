@@ -2,15 +2,22 @@ package com.itlize.korera.service;
 
 import com.itlize.korera.entity.ProjectPage;
 import com.itlize.korera.repository.ProjectPageRepository;
+import com.itlize.korera.repository.ProjectResourceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@Transactional
 public class ProjectPageServiceImp implements ProjectPageService {
 
-    @Autowired ProjectPageRepository projectPageRepository;
+    @Autowired
+    ProjectPageRepository projectPageRepository;
+    @Autowired
+    ProjectResourceServiceImp projectResourceServiceImp;
 
     @Override
     public String createProject(Integer Pcode, String Pname) {
@@ -18,16 +25,33 @@ public class ProjectPageServiceImp implements ProjectPageService {
         pp.setPcode(Pcode);
         pp.setPname(Pname);
         projectPageRepository.save(pp);
-        return "saved";
+        return "ProjectPage has been created!";
     }
 
     @Override
-    public List<ProjectPage> getProjectById(Integer id) {
+    public List<ProjectPage> getProjects() {
+
         return projectPageRepository.findAll();
     }
     @Override
-    public String deleteProjectById( Integer id) {
-        projectPageRepository.deleteById(id);
-        return "deleted";
+
+    public String deleteProjectById( Integer pid) {
+        projectPageRepository.deleteById(pid);
+        projectResourceServiceImp.deleteWholeProject(pid);
+        return "ProjectPage has been deleted!";
+
+    }
+    @Override
+    public String updateProject(Integer pid,Integer pcode,String pname){
+
+        Optional<ProjectPage> optional = projectPageRepository.findById(pid);
+        if (optional.isPresent()){
+            ProjectPage p = optional.get();
+            p.setPcode(pcode);
+            p.setPname(pname);
+            projectPageRepository.save(p);
+            return "ProjectPage has been updated!";
+        }
+        return "Project Is Not Found!";
     }
 }

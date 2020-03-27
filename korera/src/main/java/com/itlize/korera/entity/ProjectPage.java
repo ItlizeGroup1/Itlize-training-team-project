@@ -7,30 +7,34 @@ import javax.persistence.*;
 public class ProjectPage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Pid;
-    private Integer Pcode;
-    private String Pname;
+    private Integer pid;
+    private Integer pcode;
+    private String pname;
 
     public ProjectPage() {
     }
 
     public Integer getPid() {
-        return Pid;
+        return pid;
+    }
+
+    public void setPid(Integer pid) {
+        this.pid = pid;
     }
 
     public Integer getPcode() {
-        return Pcode;
+        return pcode;
     }
 
     public void setPcode(Integer pcode) {
-        Pcode = pcode;
+        this.pcode = pcode;
     }
 
     public String getPname() {
-        return Pname;
+        return pname;
     }
 
     public void setPname(String pname) {
-        Pname = pname;
+        this.pname = pname;
     }
 }

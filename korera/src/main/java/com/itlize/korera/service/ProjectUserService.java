@@ -9,4 +9,5 @@ import java.util.List;
 public interface ProjectUserService {
 
     List<ProjectUser> getProjectByUserId(Integer Uid);
+    String addProjectUser(Integer uid, Integer pid);
 }

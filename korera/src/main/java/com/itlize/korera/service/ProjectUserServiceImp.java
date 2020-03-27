@@ -13,6 +13,15 @@ import java.util.List;
 
     @Override
     public List<ProjectUser>getProjectByUserId(Integer Uid){
+
         return projectUserRepository.findAllByUid(Uid);
-    };
+    }
+    @Override
+    public String addProjectUser(Integer uid, Integer pid){
+        ProjectUser pu = new ProjectUser();
+        pu.setPid(pid);
+        pu.setUid(uid);
+        projectUserRepository.save(pu);
+        return "projectUser saved";
+    }
 }
