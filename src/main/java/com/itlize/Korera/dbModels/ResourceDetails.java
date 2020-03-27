@@ -12,13 +12,21 @@ public class ResourceDetails {
     @GeneratedValue
     private Integer id;
 
+    @Override
+    public String toString() {
+        return "ResourceDetails{" +
+                "resourceId=" + resource +
+                ", columnName='" + columnName + '\'' +
+                '}';
+    }
+
     @CreatedDate
     private Date timeCreated;
     @LastModifiedDate
     private Date lastUpdated;
 
     @ManyToOne(targetEntity = Resource.class,cascade = CascadeType.ALL)
-    private Resource resourceId;
+    private Resource resource;
 
     private String columnName;
     private String columnValue;
@@ -26,8 +34,7 @@ public class ResourceDetails {
     public ResourceDetails() {
     }
 
-    public ResourceDetails(Resource resourceId, String columnName, String columnValue) {
-        this.resourceId = resourceId;
+    public ResourceDetails(String columnName, String columnValue) {
         this.columnName = columnName;
         this.columnValue = columnValue;
     }
@@ -56,12 +63,12 @@ public class ResourceDetails {
         this.lastUpdated = lastUpdated;
     }
 
-    public Resource getResourceId() {
-        return resourceId;
+    public Resource getResource() {
+        return resource;
     }
 
-    public void setResourceId(Resource resourceId) {
-        this.resourceId = resourceId;
+    public void setResource(Resource resource) {
+        this.resource = resource;
     }
 
     public String getColumnName() {

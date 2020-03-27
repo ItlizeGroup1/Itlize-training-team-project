@@ -3,12 +3,10 @@ package com.itlize.Korera.dbModels;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.CascadeType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.sql.Date;
 
+@Entity
 public class ResourceColumns {
     @Id
     @GeneratedValue

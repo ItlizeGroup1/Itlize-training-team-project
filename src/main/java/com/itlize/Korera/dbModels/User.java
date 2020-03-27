@@ -1,12 +1,14 @@
 package com.itlize.Korera.dbModels;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
+import java.util.Collection;
+import java.util.HashSet;
 
 @Entity
 public class User {
@@ -18,8 +20,31 @@ public class User {
     @LastModifiedDate
     private Date lastUpdated;
 
+    @OneToMany(targetEntity = Project.class,cascade = CascadeType.PERSIST,mappedBy = "owner")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Collection<Project> projects = new HashSet<Project>();
+
     private String title;
     private String password;
+
+    public Collection<Project> getProjects() {
+        return projects;
+    }
+
+    public void addProjects(Project project){
+        if(projects.contains(project)){
+            return ;
+        }
+        projects.add(project);
+        project.setOwer(this);
+    }
+    public void removeProjects(Project project){
+        if(!projects.contains(project)){
+            return ;
+        }
+        projects.remove(project);
+        project.setOwer(null);
+    }
 
     public User() {
     }
@@ -28,6 +53,13 @@ public class User {
         this.password = passwrod;
         this.userName = userName;
         this.title = title;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userName='" + userName + '\'' +
+                '}';
     }
 
     public String getPassword() {

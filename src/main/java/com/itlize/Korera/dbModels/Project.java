@@ -1,10 +1,14 @@
 package com.itlize.Korera.dbModels;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Collection;
+import java.util.HashSet;
 
 @Entity
 public class Project {
@@ -20,6 +24,50 @@ public class Project {
     private Date timeCreated;
     @LastModifiedDate
     private Date lastUpdated;
+
+    @OneToMany(targetEntity = ProjectColumns.class,mappedBy = "projectId")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Collection<ProjectColumns> columns = new HashSet<ProjectColumns>();
+
+    @OneToMany(targetEntity = ProjectToResource.class, mappedBy = "projectId")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Collection<ProjectToResource> resources = new HashSet<ProjectToResource>();
+
+    public Collection<ProjectToResource> getResources() {
+        return resources;
+    }
+    public void addProjectToResource(ProjectToResource vResource){
+        if(resources.contains(vResource)){
+            return ;
+        }
+        resources.add(vResource);
+        vResource.setProjectId(this);
+    }
+    public void removeProjectToResource(ProjectToResource vResource){
+        if(!resources.contains(vResource)){
+            return ;
+        }
+        resources.remove(vResource);
+        vResource.setProjectId(null);
+    }
+
+    public Collection<ProjectColumns> getColumns() {
+        return columns;
+    }
+    public void addProjectColumns(ProjectColumns column){
+        if(columns.contains(column)){
+            return ;
+        }
+        columns.add(column);
+        column.setProjectId(this);
+    }
+    public void removeProjectColumns(ProjectColumns column){
+        if(!columns.contains(column)){
+            return ;
+        }
+        columns.remove(column);
+        column.setProjectId(null);
+    }
 
     public Project() {
     }
@@ -37,12 +85,12 @@ public class Project {
         this.id = id;
     }
 
-    public User getOwer() {
+    public User getOwner() {
         return owner;
     }
 
-    public void setOwer(User ower) {
-        this.owner = ower;
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     public String getProjectName() {
