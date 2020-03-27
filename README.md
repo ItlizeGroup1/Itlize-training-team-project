@@ -1,1 +1,0 @@
-# Itlize-training-team-project
