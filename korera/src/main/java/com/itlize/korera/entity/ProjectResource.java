@@ -9,32 +9,30 @@ import javax.persistence.*;
 public class ProjectResource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer PRid;
+    private Integer prid;
 
-    private Integer Pid;
+    private Integer pid;
 
-    private Integer Rid;
+    private Integer rid;
 
     public ProjectResource() {
     }
-
-    public Integer getPRid() {
-        return PRid;
+    public Integer getPrid() {
+        return prid;
     }
-
+    public void setPrid(Integer prid) {
+        this.prid = prid;
+    }
     public Integer getPid() {
-        return Pid;
+        return pid;
     }
-
     public void setPid(Integer pid) {
-        Pid = pid;
+        this.pid = pid;
     }
-
     public Integer getRid() {
-        return Rid;
+        return rid;
     }
-
     public void setRid(Integer rid) {
-        Rid = rid;
+        this.rid = rid;
     }
 }

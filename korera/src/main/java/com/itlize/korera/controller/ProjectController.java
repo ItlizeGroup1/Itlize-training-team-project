@@ -1,6 +1,7 @@
 package com.itlize.korera.controller;
 
 import com.itlize.korera.entity.ProjectPage;
+import com.itlize.korera.entity.ProjectUser;
 import com.itlize.korera.repository.ProjectPageRepository;
 import com.itlize.korera.repository.ProjectResourceRepository;
 import com.itlize.korera.repository.ProjectUserRepository;
@@ -68,14 +69,14 @@ public class ProjectController {
 //
 //    }
     @PostMapping(path="/{Pid}")
-    public List<Integer> getProjectResourceByPid(@PathVariable Integer Pid) {
+    public List<ProjectUser> getProjectResourceByPid(@PathVariable Integer Pid) {
         return projectResourceServiceImp.getProjectResourceByPid(Pid);
     }
 
-//    @PostMapping(path="")
-//    public  List<Integer> getProjectByUserId(@PathVariable Integer Uid){
-//        return projectUserServiceImp.getProjectByUserId(Uid);
-//    }
+    @PostMapping(path="")
+    public  List<ProjectUser> getProjectByUserId(@PathVariable Integer Uid){
+        return projectUserServiceImp.getProjectByUserId(Uid);
+    }
 
 
 }

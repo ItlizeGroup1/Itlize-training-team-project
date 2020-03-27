@@ -6,32 +6,35 @@ import javax.persistence.*;
 public class ProjectUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer PUid;
+    private Integer puid;
 
-    private Integer Pid;
-
-    private Integer Uid;
+    private Integer pid;
+    private Integer uid;
 
     public ProjectUser() {
     }
 
-    public Integer getPUid() {
-        return PUid;
+    public Integer getPuid() {
+        return puid;
+    }
+
+    public void setPuid(Integer puid) {
+        this.puid = puid;
     }
 
     public Integer getPid() {
-        return Pid;
+        return pid;
     }
 
     public void setPid(Integer pid) {
-        Pid = pid;
+        this.pid = pid;
     }
 
     public Integer getUid() {
-        return Uid;
+        return uid;
     }
 
     public void setUid(Integer uid) {
-        Uid = uid;
+        this.uid = uid;
     }
 }

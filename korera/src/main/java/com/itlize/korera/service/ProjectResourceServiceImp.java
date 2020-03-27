@@ -1,6 +1,7 @@
 package com.itlize.korera.service;
 
 import com.itlize.korera.entity.ProjectResource;
+import com.itlize.korera.entity.ProjectUser;
 import com.itlize.korera.repository.ProjectResourceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ public class ProjectResourceServiceImp implements ProjectResourceService {
     private ProjectResourceRepository projectResourceRepository;
 
     @Override
-    public List<Integer> getProjectResourceByPid(Integer Pid){
+    public List<ProjectUser> getProjectResourceByPid(Integer Pid){
         return projectResourceRepository.findAllByPid(Pid);
     }
 

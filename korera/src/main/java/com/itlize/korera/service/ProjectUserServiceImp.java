@@ -1,5 +1,6 @@
 package com.itlize.korera.service;
 
+import com.itlize.korera.entity.ProjectUser;
 import com.itlize.korera.repository.ProjectUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import java.util.List;
     ProjectUserRepository projectUserRepository;
 
     @Override
-    public List<Integer>getProjectByUserId(Integer Uid){
+    public List<ProjectUser>getProjectByUserId(Integer Uid){
         return projectUserRepository.findAllByUid(Uid);
     };
 }
