@@ -13,4 +13,5 @@ public interface ResourceDetailsService {
     public ResourceDetails get(Integer id);
     public ResourceDetails get(Resource resource, String columnName);
     public List<ResourceDetails> get(Resource resource);
+    public List<ResourceDetails> get(String columnName);
 }
