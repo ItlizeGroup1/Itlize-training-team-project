@@ -20,6 +20,23 @@ public class ProjectToResource {
     @ManyToOne(targetEntity = Resource.class,cascade = CascadeType.ALL)
     private Resource resource;
 
+    @Override
+    public String toString() {
+        return "ProjectToResource{" +
+                "id=" + id +
+                ", project=" + project +
+                ", resource=" + resource +
+                '}';
+    }
+
+    public String toJson() {
+        return "{" +
+                "\"id\":\"" + id +
+                "\", \"project\":\"" + project +
+                "\", \"resource\":\"" + resource +
+                "\"}";
+    }
+
     public ProjectToResource() {
     }
     public ProjectToResource(Project projectId, Resource resourceId) {

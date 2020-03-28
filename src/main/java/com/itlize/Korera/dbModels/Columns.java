@@ -25,7 +25,7 @@ public class Columns {
     @ManyToOne(targetEntity = Project.class, cascade = CascadeType.ALL)
     private Project project;
 
-    @OneToMany(targetEntity = ResourceDetails.class, cascade = CascadeType.PERSIST,mappedBy = "column")
+    @OneToMany(targetEntity = ResourceDetails.class, cascade = CascadeType.DETACH,mappedBy = "column")
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<ResourceDetails> entries = new HashSet<ResourceDetails>();
 
@@ -38,6 +38,12 @@ public class Columns {
 
     public Collection<ResourceDetails> getEntries() {
         return entries;
+    }
+
+    public String toJson(){
+        String ret;
+        ret = "{"+"\"columnId\" : " + '"' + id +'"' +',' + "\"columnName\" : " + '"' + columnName +'"' +'}' ;
+        return ret;
     }
 
     public void addEntries(ResourceDetails entry){

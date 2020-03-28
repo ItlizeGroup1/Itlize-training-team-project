@@ -41,6 +41,11 @@ public class ResourceDetails {
                 '}';
     }
 
+    public String toEntry(){
+        return String.format("\"%s\" : \"%s\"",column.getColumnName(),columnValue);
+    }
+
+
     public Columns getColumn() {
         return column;
     }

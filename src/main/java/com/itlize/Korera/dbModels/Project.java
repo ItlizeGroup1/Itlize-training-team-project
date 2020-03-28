@@ -25,13 +25,21 @@ public class Project {
     @LastModifiedDate
     private Date lastUpdated;
 
-    @OneToMany(targetEntity = Columns.class,mappedBy = "project")
+    @OneToMany(targetEntity = Columns.class,cascade = CascadeType.DETACH,mappedBy = "project")
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<Columns> columns = new HashSet<Columns>();
 
-    @OneToMany(targetEntity = ProjectToResource.class, mappedBy = "project")
+    @OneToMany(targetEntity = ProjectToResource.class, cascade = CascadeType.DETACH, mappedBy = "project")
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<ProjectToResource> resources = new HashSet<ProjectToResource>();
+
+
+    public String toJson() {
+        return "{" +
+                "\"id\" : \"" + id +
+                "\", \"projectName\":\"" + projectName + '"' +
+                '}';
+    }
 
     public Collection<ProjectToResource> getResources() {
         return resources;

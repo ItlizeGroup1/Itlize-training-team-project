@@ -7,8 +7,10 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 @Entity
 public class Resource {
@@ -25,7 +27,7 @@ public class Resource {
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<ProjectToResource> projects = new HashSet<ProjectToResource>();
 
-    @OneToMany(targetEntity = ResourceDetails.class,cascade = CascadeType.PERSIST,mappedBy = "resource")
+    @OneToMany(targetEntity = ResourceDetails.class,cascade = CascadeType.DETACH,mappedBy = "resource")
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<ResourceDetails> entries = new HashSet<ResourceDetails>();
 
@@ -73,6 +75,15 @@ public class Resource {
         return "Resource{" +
                 "id=" + id +
                 '}';
+    }
+    public String toJson(List<ResourceDetails> colList){
+        String ret = null;
+        List<String> colsContent = new ArrayList<String>();
+        for( ResourceDetails rd : colList){
+            colsContent.add(rd.toEntry());
+        }
+        ret = "{" + String.join(",",colsContent) + "}";
+        return ret;
     }
 
     public Resource() {
