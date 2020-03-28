@@ -85,6 +85,8 @@ public class ColumnsServiceImpl implements ColumnsService {
 
     @Override
     public Columns get(Integer id) {
+        if(id ==null)
+            return null;
         Optional<Columns> res = columnsRepository.findById(id);
         if(res.isPresent()){
             return res.get();

@@ -3,8 +3,8 @@ package com.itlize.Korera.services;
 import com.itlize.Korera.dbModels.User;
 
 public interface UserService {
-    public boolean createUser(User user);
-    public boolean deleteUser(User user);
-    public User getUser(String userName);
-    public boolean updateUser(String userName, User user);
+    public boolean create(User user);
+    public boolean delete(User user);
+    public User get(String userName);
+    public boolean update(String userName, User user);
 }

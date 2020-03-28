@@ -3,16 +3,18 @@ package com.itlize.Korera.services.serviceImpl;
 import com.itlize.Korera.dbModels.User;
 import com.itlize.Korera.repositories.UserRepository;
 import com.itlize.Korera.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
+@Service
 public class UserServiceImpl implements UserService {
+    @Autowired
     UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
     @Override
-    public boolean createUser(User user) {
+    public boolean create(User user) {
         try{
             userRepository.save(user);
         }catch (Exception e){
@@ -23,18 +25,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean deleteUser(User user) {
+    public boolean delete(User user) {
         userRepository.delete(user);
         return true;
     }
 
     @Override
-    public User getUser(String userName) {
-        return userRepository.getOne(userName);
+    public User get(String userName) {
+
+        Optional<User> a= userRepository.findById(userName);
+        if(a.isPresent()){
+            return a.get();
+        }
+        return null;
     }
 
     @Override
-    public boolean updateUser(String userName, User user) {
+    public boolean update(String userName, User user) {
         User toUpdate = userRepository.getOne(userName);
         toUpdate.setUserName(user.getUserName());
         toUpdate.setTitle(user.getTitle());

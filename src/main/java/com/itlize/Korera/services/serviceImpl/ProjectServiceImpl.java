@@ -31,7 +31,7 @@ public class ProjectServiceImpl implements ProjectService {
             projectRepository.save(project);
             userRepository.save(user);
         }catch (Exception e){
-            System.out.println("Sth wrong happens when creating");
+            System.out.println("Sth wrong happens when creating: " + e.getMessage());
             return false;
         }
         return  true;
@@ -51,6 +51,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Project get(Integer id) {
+        if(id==null)
+            return null;
         Optional<Project> res = projectRepository.findById(id);
         if(res.isPresent()){
             return res.get();

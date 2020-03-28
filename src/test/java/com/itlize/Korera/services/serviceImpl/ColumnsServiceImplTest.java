@@ -24,12 +24,11 @@ public class ColumnsServiceImplTest {
     @Test
     public void all(){
         //create
-        Columns toAdd = new Columns(null, "newColumn");
-        toAdd.setId(100);
+        Columns toAdd = new Columns(null, "testColumn");
         boolean isSuccessful = columnsService.create(toAdd);
         Assert.assertTrue(isSuccessful);
         //read
-        Columns res = columnsService.get(toAdd.getId());
+        Columns res = columnsService.get(toAdd.getProject(),toAdd.getColumnName());
         System.out.println(res.toString());
         Assert.assertTrue(res!=null);
         //update

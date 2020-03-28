@@ -108,7 +108,7 @@ public class ResourceDetailsServiceImpl implements ResourceDetailsService {
     public ResourceDetails get(Resource resource, Columns column) {
         List<ResourceDetails> ret = resourceDetailsRepository.findByResourceAndColumn(resource,column);
         if(ret.size()==0){
-            System.out.println(String.format("record for resource:%s and columnName:%s not found",resource.toString(),column.toString()));
+            //System.out.println(String.format("record for resource:%s and columnName:%s not found",resource.toString(),column.toString()));
             return null;
         }
         return ret.get(0);

@@ -1,9 +1,11 @@
 package com.itlize.Korera.services.serviceImpl;
 
 import com.itlize.Korera.dbModels.Project;
-import com.itlize.Korera.dbModels.User;
+import com.itlize.Korera.dbModels.ProjectToResource;
+import com.itlize.Korera.dbModels.Resource;
 import com.itlize.Korera.services.ProjectService;
-import com.itlize.Korera.services.UserService;
+import com.itlize.Korera.services.ProjectToResourceService;
+import com.itlize.Korera.services.ResourceService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,32 +17,38 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ProjectServiceImplTest {
+public class ProjectToResourceServiceImplTest {
 
+    @Autowired
+    private ProjectToResourceService projectToResourceService;
     @Autowired
     private ProjectService projectService;
     @Autowired
-    private UserService userService;
+    private ResourceService resourceService;
 
     @Test
     public void create() {
-        Project toAdd = new Project();
-        User user = userService.get("shabby1");
-        boolean isSuccessful = projectService.create(toAdd,user);
+        ProjectToResource ptr = new ProjectToResource();
+        Resource resource = resourceService.get(9);
+        Project project = projectService.get(29);
+        boolean isSuccessful = projectToResourceService.create(ptr,project,resource);
         Assert.assertTrue(isSuccessful);
 
     }
 
     @Test
     public void delete() {
-        Project toDelete = projectService.get(30);
-        boolean isSuccessful = projectService.delete(toDelete);
-        Assert.assertTrue(isSuccessful);
     }
 
     @Test
     public void get() {
-        Project res = projectService.get(30);
-        Assert.assertTrue(res!=null);
+    }
+
+    @Test
+    public void testGet() {
+    }
+
+    @Test
+    public void testGet1() {
     }
 }

@@ -21,8 +21,8 @@ class UserServiceImplTest {
 
     @Test
     void createUser() {
-        User toAdd = new User("shabby1","admin","123");
-        boolean a = userService.createUser(toAdd);
+        User toAdd = new User("shabby2","admin","123");
+        boolean a = userService.create(toAdd);
         Assert.assertTrue(a);
     }
 

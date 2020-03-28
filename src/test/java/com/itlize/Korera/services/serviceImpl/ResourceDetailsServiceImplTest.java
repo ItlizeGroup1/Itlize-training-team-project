@@ -24,23 +24,20 @@ import java.util.Optional;
 public class ResourceDetailsServiceImplTest {
 
     @Autowired
-    private static ResourceDetailsService resourceDetailsService;
+    private ResourceDetailsService resourceDetailsService;
     @Autowired
-    private static ColumnsService columnsService;
+    private ColumnsService columnsService;
     @Autowired
-    private static ResourceRepository resourceRepository;
+    private ResourceRepository resourceRepository;
 
-    @BeforeEach
-    public static void beforeEach() throws Exception {
 
-    }
 
     @Test
     public void create() {
-        Columns column = columnsService.get(1);
-        Optional<Resource> resource = resourceRepository.findById(1);
+        Columns column = columnsService.get(new Integer(21));
+        Optional<Resource> resource = resourceRepository.findById(9);
         if(resource.isPresent()){
-        ResourceDetails newRD = new ResourceDetails(resource.get(),column,"colValue");
+        ResourceDetails newRD = new ResourceDetails("colValue");
         boolean isSuccessful = resourceDetailsService.create(newRD,resource.get(),column);
         Assert.assertTrue(isSuccessful);
         }else{
@@ -50,8 +47,8 @@ public class ResourceDetailsServiceImplTest {
 
     @Test
     public void delete() {
-        Columns column = columnsService.get(1);
-        Optional<Resource> resource = resourceRepository.findById(1);
+        Columns column = columnsService.get(21);
+        Optional<Resource> resource = resourceRepository.findById(9);
         if(resource.isPresent()){
             ResourceDetails rd = resourceDetailsService.get(resource.get(),column);
             boolean isSuccessful = resourceDetailsService.delete(rd);
@@ -63,8 +60,8 @@ public class ResourceDetailsServiceImplTest {
 
     @Test
     public void update() {
-        Columns column = columnsService.get(1);
-        Optional<Resource> resource = resourceRepository.findById(1);
+        Columns column = columnsService.get(21);
+        Optional<Resource> resource = resourceRepository.findById(9);
         if(resource.isPresent()){
             boolean isSuccessful = resourceDetailsService.update(resource.get(),column,"newValue");
             Assert.assertTrue(isSuccessful);
@@ -76,8 +73,8 @@ public class ResourceDetailsServiceImplTest {
 
     @Test
     public void get() {
-        Columns column = columnsService.get(1);
-        Optional<Resource> resource = resourceRepository.findById(1);
+        Columns column = columnsService.get(21);
+        Optional<Resource> resource = resourceRepository.findById(9);
         if(resource.isPresent()){
             Resource rsrc = resource.get();
             System.out.println(rsrc.toString());
@@ -90,7 +87,7 @@ public class ResourceDetailsServiceImplTest {
 
     @Test
     public void getByResource() {
-        Optional<Resource> resource = resourceRepository.findById(1);
+        Optional<Resource> resource = resourceRepository.findById(9);
         if(resource.isPresent()){
             Resource rsrc = resource.get();
             System.out.println(rsrc.toString());

@@ -28,9 +28,7 @@ public class ResourceDetails {
     public ResourceDetails() {
     }
 
-    public ResourceDetails(Resource resource, Columns column, String columnValue) {
-        this.resource = resource;
-        this.column = column;
+    public ResourceDetails(String columnValue) {
         this.columnValue = columnValue;
     }
 
