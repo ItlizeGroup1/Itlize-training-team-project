@@ -21,7 +21,7 @@ public class Resource {
     @LastModifiedDate
     private Date lastUpdated;
 
-    @OneToMany(targetEntity = ProjectToResource.class,cascade = CascadeType.DETACH,mappedBy = "resourceId")
+    @OneToMany(targetEntity = ProjectToResource.class,cascade = CascadeType.DETACH,mappedBy = "resource")
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<ProjectToResource> projects = new HashSet<ProjectToResource>();
 
@@ -29,29 +29,7 @@ public class Resource {
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<ResourceDetails> entries = new HashSet<ResourceDetails>();
 
-    @OneToMany(targetEntity = ResourceColumns.class,cascade = CascadeType.DETACH,mappedBy = "resource")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private Collection<ResourceColumns> columns = new HashSet<ResourceColumns>();
 
-    public Collection<ResourceColumns> getColumns() {
-        return columns;
-    }
-
-    public void addColumns(ResourceColumns column){
-        if(columns.contains(column)){
-            return ;
-        }
-        columns.add(column);
-        column.setResource(this);
-    }
-
-    public void removeColumns(ResourceColumns column){
-        if(!columns.contains(column)){
-            return ;
-        }
-        columns.remove(column);
-        column.setResource(null);
-    }
 
     public Collection<ResourceDetails> getEntries() {
         return entries;
@@ -64,7 +42,7 @@ public class Resource {
         entries.add(entry);
         entry.setResource(this);
     }
-    public void removeEntrie(ResourceDetails entry){
+    public void removeEntries(ResourceDetails entry){
         if(!entries.contains(entry)){
             return;
         }
@@ -80,14 +58,14 @@ public class Resource {
         if(projects.contains(project))
             return;
         projects.add(project);
-        project.setResourceId(this);
+        project.setResource(this);
     }
     public void removeProjects(ProjectToResource project){
         if(!projects.contains(project)){
             return;
         }
         projects.remove(project);
-        project.setResourceId(null);
+        project.setResource(null);
     }
 
     @Override

@@ -20,24 +20,39 @@ public class ResourceDetails {
     @ManyToOne(targetEntity = Resource.class,cascade = CascadeType.ALL)
     private Resource resource;
 
-    private String columnName;
+    @ManyToOne(targetEntity = Columns.class, cascade = CascadeType.ALL)
+    private Columns column;
+
     private String columnValue;
 
     public ResourceDetails() {
+    }
+
+    public ResourceDetails(Resource resource, Columns column, String columnValue) {
+        this.resource = resource;
+        this.column = column;
+        this.columnValue = columnValue;
     }
 
     @Override
     public String toString() {
         return "ResourceDetails{" +
                 "resource=" + resource +
-                ", columnName='" + columnName + '\'' +
+                ", column=" + column +
                 ", columnValue='" + columnValue + '\'' +
                 '}';
     }
 
-    public ResourceDetails(String columnName, String columnValue) {
-        this.columnName = columnName;
-        this.columnValue = columnValue;
+    public Columns getColumn() {
+        return column;
+    }
+
+    public void setColumn(Columns column) {
+        this.column = column;
+    }
+
+    public String getColumnValue() {
+        return columnValue;
     }
 
     public Integer getId() {
@@ -72,17 +87,7 @@ public class ResourceDetails {
         this.resource = resource;
     }
 
-    public String getColumnName() {
-        return columnName;
-    }
 
-    public void setColumnName(String columnName) {
-        this.columnName = columnName;
-    }
-
-    public String getColumnValue() {
-        return columnValue;
-    }
 
     public void setColumnValue(String columnValue) {
         this.columnValue = columnValue;

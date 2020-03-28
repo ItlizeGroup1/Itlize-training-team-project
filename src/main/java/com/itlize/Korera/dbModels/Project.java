@@ -25,11 +25,11 @@ public class Project {
     @LastModifiedDate
     private Date lastUpdated;
 
-    @OneToMany(targetEntity = ProjectColumns.class,mappedBy = "projectId")
+    @OneToMany(targetEntity = Columns.class,mappedBy = "project")
     @LazyCollection(LazyCollectionOption.FALSE)
-    private Collection<ProjectColumns> columns = new HashSet<ProjectColumns>();
+    private Collection<Columns> columns = new HashSet<Columns>();
 
-    @OneToMany(targetEntity = ProjectToResource.class, mappedBy = "projectId")
+    @OneToMany(targetEntity = ProjectToResource.class, mappedBy = "project")
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<ProjectToResource> resources = new HashSet<ProjectToResource>();
 
@@ -41,32 +41,32 @@ public class Project {
             return ;
         }
         resources.add(vResource);
-        vResource.setProjectId(this);
+        vResource.setProject(this);
     }
     public void removeProjectToResource(ProjectToResource vResource){
         if(!resources.contains(vResource)){
             return ;
         }
         resources.remove(vResource);
-        vResource.setProjectId(null);
+        vResource.setProject(null);
     }
 
-    public Collection<ProjectColumns> getColumns() {
+    public Collection<Columns> getColumns() {
         return columns;
     }
-    public void addProjectColumns(ProjectColumns column){
+    public void addColumns(Columns column){
         if(columns.contains(column)){
             return ;
         }
         columns.add(column);
-        column.setProjectId(this);
+        column.setProject(this);
     }
-    public void removeProjectColumns(ProjectColumns column){
+    public void removeColumns(Columns column){
         if(!columns.contains(column)){
             return ;
         }
         columns.remove(column);
-        column.setProjectId(null);
+        column.setProject(null);
     }
 
     public Project() {
