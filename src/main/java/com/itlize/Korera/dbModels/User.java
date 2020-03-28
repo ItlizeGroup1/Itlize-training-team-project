@@ -36,14 +36,14 @@ public class User {
             return ;
         }
         projects.add(project);
-        project.setOwer(this);
+        project.setOwner(this);
     }
     public void removeProjects(Project project){
         if(!projects.contains(project)){
             return ;
         }
         projects.remove(project);
-        project.setOwer(null);
+        project.setOwner(null);
     }
 
     public User() {

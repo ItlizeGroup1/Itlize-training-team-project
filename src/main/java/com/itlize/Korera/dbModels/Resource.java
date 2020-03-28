@@ -90,7 +90,12 @@ public class Resource {
         project.setResourceId(null);
     }
 
-
+    @Override
+    public String toString() {
+        return "Resource{" +
+                "id=" + id +
+                '}';
+    }
 
     public Resource() {
     }

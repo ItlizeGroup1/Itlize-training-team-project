@@ -12,14 +12,6 @@ public class ResourceDetails {
     @GeneratedValue
     private Integer id;
 
-    @Override
-    public String toString() {
-        return "ResourceDetails{" +
-                "resourceId=" + resource +
-                ", columnName='" + columnName + '\'' +
-                '}';
-    }
-
     @CreatedDate
     private Date timeCreated;
     @LastModifiedDate
@@ -32,6 +24,15 @@ public class ResourceDetails {
     private String columnValue;
 
     public ResourceDetails() {
+    }
+
+    @Override
+    public String toString() {
+        return "ResourceDetails{" +
+                "resource=" + resource +
+                ", columnName='" + columnName + '\'' +
+                ", columnValue='" + columnValue + '\'' +
+                '}';
     }
 
     public ResourceDetails(String columnName, String columnValue) {
