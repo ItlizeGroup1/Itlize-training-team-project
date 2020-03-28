@@ -3,7 +3,6 @@ package com.itlize.korera.service;
 
 import com.itlize.korera.entity.Resource;
 import com.itlize.korera.entity.ResourceDetails;
-
 import java.util.List;
 
 public interface ResourceDetailsService {
@@ -14,4 +13,5 @@ public interface ResourceDetailsService {
     public ResourceDetails get(Integer id);
     public ResourceDetails get(Resource resource, String columnName);
     public List<ResourceDetails> get(Resource resource);
+    public List<ResourceDetails> get(String columnName);
 }

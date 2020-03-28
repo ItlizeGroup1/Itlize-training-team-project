@@ -110,4 +110,9 @@ public class ResourceDetailsServiceImp implements ResourceDetailsService {
     public List<ResourceDetails> get(Resource resource) {
         return resourceDetailsRepository.findByResource(resource);
     }
+
+    @Override
+    public List<ResourceDetails> get(String columnName) {
+        return resourceDetailsRepository.findByColumnName(columnName);
+    }
 }

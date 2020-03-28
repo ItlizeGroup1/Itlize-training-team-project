@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ResourceDetailsRepository extends JpaRepository<ResourceDetails,Integer> {
     List<ResourceDetails> findByResource(Resource resource);
+    List<ResourceDetails> findByColumnName(String columnName);
     List<ResourceDetails> findByResourceAndColumnName(Resource resource,String columnName);
 
 }
