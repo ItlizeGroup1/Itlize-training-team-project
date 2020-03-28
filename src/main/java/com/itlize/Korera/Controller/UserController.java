@@ -5,7 +5,7 @@ package com.itlize.Korera.Controller;
 import com.itlize.Korera.Entity.Role;
 import com.itlize.Korera.Entity.User;
 import com.itlize.Korera.Service.UserService;
-import com.itlize.Korera.Utils.JwtUtils;
+import com.itlize.Korera.Utils.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ import java.security.Principal;
 @RequestMapping("/users")
 public class UserController {
     @Autowired
-    private JwtUtils jwtUtils;
+    private JwtTokenProvider jwtTokenProvider;
 
 
     @Autowired
@@ -32,17 +32,20 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         user.setRole(Role.USER);
+
+        user.setToken(jwtTokenProvider.generateToken(new UsernamePasswordAuthenticationToken(user.getUsername(),null)));
         return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
     }
 
     @GetMapping("/login")
-    public ResponseEntity<?> login (Principal principal) {
-        if (principal == null) {
+    public ResponseEntity<?> login(Principal principal){
+        if(principal == null){
+            //This should be ok http status because this will be used for logout path.
             return ResponseEntity.ok(principal);
         }
         UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
         User user = userService.findByUsername(authenticationToken.getName());
-        user.setToken(jwtUtils.generateToken(authenticationToken));
-        return new ResponseEntity<>(userService.findByUsername(principal.getName()), HttpStatus.OK);
+        user.setToken(jwtTokenProvider.generateToken(authenticationToken));
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }

@@ -1,6 +1,7 @@
 package com.itlize.Korera.Entity;
 
 
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -19,6 +20,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
+
 
     @Column(name = "username")
     private String username;
