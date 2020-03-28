@@ -17,13 +17,13 @@ public class Formula {
     @LastModifiedDate
     private Date lastUpdated;
 
-    @ManyToOne(targetEntity = Project1.class,cascade = CascadeType.ALL)
-    private Project1 projectId;
+    @ManyToOne(targetEntity = Project.class,cascade = CascadeType.ALL)
+    private Project projectId;
 
     private String formula;
 
 
-    public Formula(Project1 projectId, String formula) {
+    public Formula(Project projectId, String formula) {
         this.projectId = projectId;
         this.formula = formula;
     }
@@ -54,11 +54,11 @@ public class Formula {
         this.lastUpdated = lastUpdated;
     }
 
-    public Project1 getProjectId() {
+    public Project getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(Project1 projectId) {
+    public void setProjectId(Project projectId) {
         this.projectId = projectId;
     }
 

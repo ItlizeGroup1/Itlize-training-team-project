@@ -14,6 +14,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Users")
 public class User1 {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -21,6 +22,7 @@ public class User1 {
 
     @Column(name = "username")
     private String username;
+
     @Column(name = "password")
     private String password;
 

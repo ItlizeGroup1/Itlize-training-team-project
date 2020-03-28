@@ -1,9 +1,9 @@
 package com.itlize.korera.repository;
 
-import com.itlize.korera.entity.Resource1;
+import com.itlize.korera.entity.Resource;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface ResourceRepository extends JpaRepository<Resource1,Integer> {
+public interface ResourceRepository extends JpaRepository<Resource,Integer> {
 
 }

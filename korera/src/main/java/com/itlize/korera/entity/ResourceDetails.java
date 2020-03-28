@@ -1,35 +1,50 @@
 package com.itlize.korera.entity;
 
 import org.springframework.data.annotation.CreatedDate;
+
 import org.springframework.data.annotation.LastModifiedDate;
 
+
+
 import javax.persistence.*;
+
 import java.sql.Date;
 
 @Entity
 public class ResourceDetails {
+
     @Id
     @GeneratedValue
     private Integer id;
 
     @CreatedDate
     private Date timeCreated;
+
     @LastModifiedDate
     private Date lastUpdated;
 
-    @ManyToOne(targetEntity = Resource1.class,cascade = CascadeType.ALL)
-    private Resource1 resourceId;
+    @ManyToOne(targetEntity = Resource.class,cascade = CascadeType.ALL)
+    private Resource resource;
 
     private String columnName;
     private String columnValue;
 
-    public ResourceDetails(Resource1 resourceId, String columnName, String columnValue) {
-        this.resourceId = resourceId;
+    public ResourceDetails() {
+    }
+
+    @Override
+    public String toString() {
+        return "ResourceDetails{" +
+                "resource=" + resource +
+                ", columnName='" + columnName + '\'' +
+                ", columnValue='" + columnValue + '\'' +
+                '}';
+    }
+
+    public ResourceDetails(String columnName, String columnValue) {
         this.columnName = columnName;
         this.columnValue = columnValue;
     }
-
-    public ResourceDetails(){};
 
     public Integer getId() {
         return id;
@@ -55,12 +70,12 @@ public class ResourceDetails {
         this.lastUpdated = lastUpdated;
     }
 
-    public Resource1 getResourceId() {
-        return resourceId;
+    public Resource getResource() {
+        return resource;
     }
 
-    public void setResourceId(Resource1 resourceId) {
-        this.resourceId = resourceId;
+    public void setResource(Resource resource) {
+        this.resource = resource;
     }
 
     public String getColumnName() {

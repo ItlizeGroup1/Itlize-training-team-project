@@ -1,43 +1,84 @@
 package com.itlize.korera.entity;
 
+import org.hibernate.annotations.LazyCollection;
+
+import org.hibernate.annotations.LazyCollectionOption;
+
 import org.springframework.data.annotation.CreatedDate;
+
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+
+
+import javax.persistence.*;
+
 import java.sql.Date;
+
+import java.util.Collection;
+
+import java.util.HashSet;
 
 @Entity
 public class User2 {
-    @Id
-    @GeneratedValue
-    private Integer id;
 
+    @Id
     private String userName;
-    private String title;
 
     @CreatedDate
     private Date timeCreated;
+
     @LastModifiedDate
     private Date lastUpdated;
 
-    //--!! NOTICE: password need for this entity
-    //--When Wenxuan figure out how to store password this part should be fixed
+    @OneToMany(targetEntity = Project.class,cascade = CascadeType.PERSIST,mappedBy = "owner")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Collection<Project> projects = new HashSet<Project>();
 
-    public User2(String userName, String title) {
+    private String title;
+    private String password;
+
+    public Collection<Project> getProjects() {
+        return projects;
+    }
+
+    public void addProjects(Project project){
+        if(projects.contains(project)){
+            return ;
+        }
+        projects.add(project);
+        project.setOwner(this);
+    }
+
+    public void removeProjects(Project project){
+        if(!projects.contains(project)){
+            return ;
+        }
+        projects.remove(project);
+        project.setOwner(null);
+    }
+
+    public User2() {
+    }
+
+    public User2(String userName, String title, String passwrod) {
+        this.password = passwrod;
         this.userName = userName;
         this.title = title;
     }
 
-    public User2(){}
-
-    public Integer getId() {
-        return id;
+    @Override
+    public String toString() {
+        return "User{" +
+                "userName='" + userName + '\'' +
+                '}';
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getUserName() {
