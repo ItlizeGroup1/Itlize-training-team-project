@@ -39,18 +39,18 @@ public class ProjectResourceServiceImp implements ProjectResourceService {
             return projectResourceRepository.findAllByProjectId(p);
         }else return null;
     }
-    public String update(Integer prid, Integer pid, Integer rid){
+    public String update(Integer prid, Integer rid){
         Optional<ProjectResource> op1 = projectResourceRepository.findById(prid);
-        Optional<Project> op2 = projectRepository.findById(pid);
         Optional<Resource> op3 = resourceRepository.findById(rid);
-        if(op1.isPresent()&&op2.isPresent()&&op3.isPresent()){
+
+        if(op1.isPresent()&op3.isPresent()){
             ProjectResource pr = op1.get();
-            pr.setProjectId(op2.get());
             pr.setResourceId(op3.get());
             projectResourceRepository.save(pr);
-            return prid+ " :Project-Resource {" + pid +"-" +rid+"} has been updated successfully!";
+            return prid+ " :Resource {"+rid+"} has been updated successfully!";
         }else return "failed!";
     }
+
     public String delete(Integer prid){
         try{
             projectResourceRepository.deleteById(prid);

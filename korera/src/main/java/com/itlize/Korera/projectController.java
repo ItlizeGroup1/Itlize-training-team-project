@@ -31,11 +31,10 @@ public class projectController {
      * ProjectPage
      */
     //ProjectPage: Add a project
-    @PostMapping(path = "/prpojectAdd")
+    @PostMapping(path = "/projectAdd")
     public String createProject(@RequestParam Integer pid,@RequestParam String projectName,@PathVariable String uid){
         return projectServiceImp.create(pid, projectName,uid);
     }
-
     //ProjectPage: Get all projects' code and name
     @GetMapping(path="/projectAll")
     public List<Project> getProjects() {
@@ -45,9 +44,7 @@ public class projectController {
     //ProjectPage: Delete a project
     @DeleteMapping(path="/projectDelete")
     public String deleteProjectById(@RequestParam Integer pid) {
-        if(projectServiceImp.deleteProjectById(pid)){
-            return "Project{"+pid+"} has been deleted successfully!";
-        }else return "failed";
+        return projectServiceImp.deleteProjectById(pid);
     }
 
     //ProjectPage: Update Project
@@ -71,7 +68,7 @@ public class projectController {
     }
     //ProjectResource: Add Project-Resource row
     @PostMapping(path = "/{pid}")
-    public  String addProjectResource(@PathVariable Integer pid, @RequestParam Integer rid){
+    public  String addProjectResopurce(@PathVariable Integer pid, @RequestParam Integer rid){
         return projectResourceServiceImp.create(pid,rid);
     }
     //ProjectResource: delete Project-Resource row
@@ -82,8 +79,8 @@ public class projectController {
 
     //ProjectResource: update Project-Resource
     @PutMapping(path="/{pid}")
-    public String updateProjectResource(@RequestParam Integer prid,@PathVariable Integer pid,@RequestParam Integer rid){
-        return projectResourceServiceImp.update(prid, pid, rid);
+    public String updateProjectResource(@RequestParam Integer prid,@RequestParam Integer rid){
+        return projectResourceServiceImp.update(prid, rid);
     }
 
 

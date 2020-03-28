@@ -1,5 +1,6 @@
 package com.itlize.Korera.dbModels;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.annotation.CreatedDate;
@@ -23,16 +24,19 @@ public class Project {
     @LastModifiedDate
     private Date lastUpdated;
 
-    @ManyToOne(targetEntity = User.class,cascade= CascadeType.ALL)
+    @ManyToOne(targetEntity = User.class,cascade= CascadeType.DETACH)
     private User owner;
 
-    @OneToMany(targetEntity = ProjectColumns.class,mappedBy = "projectId")
+    @JsonIgnore
+    @OneToMany(targetEntity = ProjectColumns.class,mappedBy = "projectId", cascade = CascadeType.DETACH)
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<ProjectColumns> columns = new HashSet<ProjectColumns>();
 
-    @OneToMany(targetEntity = ProjectResource.class, mappedBy = "projectId")
+    @JsonIgnore
+    @OneToMany(targetEntity = ProjectResource.class, mappedBy = "projectId",cascade = CascadeType.REMOVE)
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<ProjectResource> resources = new HashSet<ProjectResource>();
+
 
     public Project() {
     }
@@ -65,4 +69,5 @@ public class Project {
     public void setOwner(User owner) {
         this.owner = owner;
     }
+
 }

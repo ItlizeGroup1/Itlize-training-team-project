@@ -1,5 +1,6 @@
 package com.itlize.Korera.dbModels;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -13,11 +14,11 @@ public class ProjectResource {
 
     @CreatedDate
     private Date time_created;
-
-    @ManyToOne(targetEntity = Project.class, cascade = CascadeType.ALL)
+    @JsonIgnore
+    @ManyToOne(targetEntity = Project.class, cascade = CascadeType.DETACH)
     private Project projectId;
-
-    @ManyToOne(targetEntity = Resource.class,cascade = CascadeType.ALL)
+    @JsonIgnore
+    @ManyToOne(targetEntity = Resource.class,cascade = CascadeType.DETACH)
     private Resource resourceId;
 
     public ProjectResource() {

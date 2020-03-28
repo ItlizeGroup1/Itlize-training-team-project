@@ -30,13 +30,13 @@ public class ProjectServiceImp implements ProjectService {
         }else return "failed";
     }
     @Override
-    public boolean deleteProjectById(Integer id){
+    public String deleteProjectById(Integer id){
         try{
             projectRepository.deleteById(id);
-            return true;
+            return "Project{"+id+"} has been created successfully!";
         }catch (Exception e){
             e.getStackTrace();
-            return false;
+            return "failed";
         }
     }
     @Override
