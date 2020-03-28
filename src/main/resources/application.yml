@@ -2,7 +2,7 @@
 #  datasource:
 #    url: jdbc:mysql://localhost:3306/Korera
 #    username: root
-#    password: Walker31697!
+#    password: 67826058bB!
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 #  jpa:
 #    database: MYSQL
