@@ -24,6 +24,10 @@ public class ColumnsServiceImplTest {
     ColumnsService columnsService;
     @Autowired
     ProjectService projectService;
+    @Test
+    public void getColJson() {
+        System.out.println(columnsService.getColumnsJson(projectService.get(18)));
+    }
 
     @Test
     public void all(){

@@ -23,6 +23,11 @@ public class ProjectServiceImplTest {
     private UserService userService;
 
     @Test
+    public void getJson(){
+        System.out.println(projectService.toJson(18));
+    }
+
+    @Test
     public void create() {
         Project toAdd = new Project();
         User user = userService.get("shabby2");

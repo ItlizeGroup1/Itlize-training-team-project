@@ -21,18 +21,8 @@ public class ResourceServiceImplTest {
 
     @Test
     public void all(){
-        //create
-        Integer id=100;
-        Resource resource = new Resource();
-        resource.setId(id);
-        boolean success = resourceService.create(resource);
-        Assert.assertTrue(success);
-        //read
-        Resource res = resourceService.get(id);
-        Assert.assertTrue(res!=null);
-        //delete
-        success = resourceService.delete(res);
-        Assert.assertTrue(success);
+        //System.out.println(resourceService.toJson(23,null));
+        System.out.println(resourceService.getAllJson());
     }
     @Test
     public void create() {
