@@ -1,4 +1,4 @@
-package com.itlize.Korera.Security;
+package com.itlize.Korera.security;
 
 public class SecurityConstants {
     public static final String key = "wenxuan";

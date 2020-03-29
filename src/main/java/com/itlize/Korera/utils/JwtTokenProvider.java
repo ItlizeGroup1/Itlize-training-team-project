@@ -1,4 +1,4 @@
-package com.itlize.Korera.Utils;
+package com.itlize.Korera.utils;
 
 
 import io.jsonwebtoken.Claims;

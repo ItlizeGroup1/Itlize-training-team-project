@@ -1,8 +1,8 @@
-package com.itlize.Korera.Security;
+package com.itlize.Korera.security;
 
-import com.itlize.Korera.Service.MyUserDetailService;
-import com.itlize.Korera.Utils.JwtAuthorizationFilter;
-import com.itlize.Korera.Utils.JwtTokenProvider;
+import com.itlize.Korera.service.MyUserDetailService;
+import com.itlize.Korera.utils.JwtAuthorizationFilter;
+import com.itlize.Korera.utils.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,6 +35,12 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     // Authentication
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(myUserDetailService).passwordEncoder(passwordEncoder());
+        //
+        //
+        //
+        //
+        //
+        //
     }
 
     @Override

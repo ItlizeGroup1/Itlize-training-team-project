@@ -1,4 +1,4 @@
-package com.itlize.Korera.Entity;
+package com.itlize.Korera.dbModels;
 
 public enum Role {
     USER,ADMIN

@@ -1,8 +1,8 @@
-package com.itlize.Korera.Service;
+package com.itlize.Korera.service;
 
 
-import com.itlize.Korera.Dao.UserRepository;
-import com.itlize.Korera.Entity.User;
+import com.itlize.Korera.repository.UserRepository;
+import com.itlize.Korera.dbModels.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

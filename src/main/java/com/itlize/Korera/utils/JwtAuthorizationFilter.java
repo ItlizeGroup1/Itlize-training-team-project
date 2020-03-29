@@ -1,4 +1,4 @@
-package com.itlize.Korera.Utils;
+package com.itlize.Korera.utils;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
