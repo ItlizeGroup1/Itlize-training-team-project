@@ -12,6 +12,7 @@ public interface ProjectToResourceService {
     public ProjectToResource get(Integer id);
     public ProjectToResource get(Project project, Resource resource);
     public List<ProjectToResource> get(Project project);
+    public void clear();
 
 
 }

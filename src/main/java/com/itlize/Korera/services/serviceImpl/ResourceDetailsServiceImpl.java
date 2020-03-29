@@ -8,8 +8,10 @@ import com.itlize.Korera.repositories.ResourceDetailsRepository;
 import com.itlize.Korera.repositories.ResourceRepository;
 import com.itlize.Korera.services.ColumnsService;
 import com.itlize.Korera.services.ResourceDetailsService;
+import com.itlize.Korera.services.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +23,8 @@ public class ResourceDetailsServiceImpl implements ResourceDetailsService {
     private ResourceDetailsRepository resourceDetailsRepository;
     @Autowired
     private ResourceRepository resourceRepository;
+    @Autowired
+    private ResourceService resourceService;
     @Autowired
     private ColumnsRepository columnsRepository;
 
@@ -59,8 +63,14 @@ public class ResourceDetailsServiceImpl implements ResourceDetailsService {
      * delete the given resource Detail
      */
     @Override
+    @Transactional
     public boolean delete(ResourceDetails resourceDetails) {
+        if(resourceDetails==null){
+            System.out.println("deleting null rd");
+        }
+        System.out.println("deleting rd: " +resourceDetails.getId());
         try {
+
             resourceDetailsRepository.delete(resourceDetails);
         }catch (Exception e){
             System.out.println("Sth wrong happens when deleting resourceDetail "  +  resourceDetails.toString());
@@ -105,6 +115,11 @@ public class ResourceDetailsServiceImpl implements ResourceDetailsService {
     }
 
     @Override
+    public ResourceDetails get(Integer resourceId, Columns column) {
+        return get( resourceService.get(resourceId) , column);
+    }
+
+    @Override
     public ResourceDetails get(Resource resource, Columns column) {
         List<ResourceDetails> ret = resourceDetailsRepository.findByResourceAndColumn(resource,column);
         if(ret.size()==0){
@@ -117,6 +132,11 @@ public class ResourceDetailsServiceImpl implements ResourceDetailsService {
     @Override
     public List<ResourceDetails> get(Resource resource) {
         return resourceDetailsRepository.findByResource(resource);
+    }
+
+    @Override
+    public void clear() {
+        resourceDetailsRepository.deleteAll();
     }
 
 

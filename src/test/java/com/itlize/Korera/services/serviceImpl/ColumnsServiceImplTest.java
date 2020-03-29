@@ -1,7 +1,9 @@
 package com.itlize.Korera.services.serviceImpl;
 
 import com.itlize.Korera.dbModels.Columns;
+import com.itlize.Korera.dbModels.Project;
 import com.itlize.Korera.services.ColumnsService;
+import com.itlize.Korera.services.ProjectService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +22,8 @@ public class ColumnsServiceImplTest {
 
     @Autowired
     ColumnsService columnsService;
+    @Autowired
+    ProjectService projectService;
 
     @Test
     public void all(){
@@ -43,9 +47,9 @@ public class ColumnsServiceImplTest {
 
     @Test
     public void create() {
-        Columns toAdd = new Columns(null, "newColumn");
-        toAdd.setId(19);
-        boolean isSuccessful = columnsService.create(toAdd);
+        Columns toAdd = new Columns(null, "testColumn");
+        Project project = projectService.get(38);
+        boolean isSuccessful = columnsService.create(toAdd,project);
         Assert.assertTrue(isSuccessful);
     }
 

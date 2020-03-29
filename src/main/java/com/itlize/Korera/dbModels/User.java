@@ -20,7 +20,7 @@ public class User {
     @LastModifiedDate
     private Date lastUpdated;
 
-    @OneToMany(targetEntity = Project.class,cascade = CascadeType.DETACH,mappedBy = "owner")
+    @OneToMany(targetEntity = Project.class,cascade = CascadeType.REMOVE,mappedBy = "owner")
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<Project> projects = new HashSet<Project>();
 

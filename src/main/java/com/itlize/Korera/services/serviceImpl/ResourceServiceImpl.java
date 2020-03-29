@@ -1,17 +1,29 @@
 package com.itlize.Korera.services.serviceImpl;
 
-import com.itlize.Korera.dbModels.Resource;
+import com.itlize.Korera.dbModels.*;
 import com.itlize.Korera.repositories.ResourceRepository;
+import com.itlize.Korera.services.ColumnsService;
+import com.itlize.Korera.services.ProjectToResourceService;
+import com.itlize.Korera.services.ResourceDetailsService;
 import com.itlize.Korera.services.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ResourceServiceImpl implements ResourceService {
     @Autowired
     private ResourceRepository resourceRepository;
+    @Autowired
+    private ColumnsService columnsService;
+    @Autowired
+    private ResourceDetailsService resourceDetailsService;
+    @Autowired
+    private ProjectToResourceService projectToResourceService;
 
     @Override
     public boolean create(Resource resource) {
@@ -38,8 +50,14 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
+    @Transactional
     public boolean delete(Resource resource) {
+        if(resource==null){
+            System.out.println("deleting null resource");
+        }
+        System.out.println("deleting resource: " +resource.getId());
         try{
+
             resourceRepository.delete(resource);
         }catch(Exception e){
             e.printStackTrace();
@@ -57,5 +75,58 @@ public class ResourceServiceImpl implements ResourceService {
         }else{
             return null;
         }
+    }
+
+    @Override
+    public List<Resource> getAll() {
+        return resourceRepository.findAll();
+    }
+
+    @Override
+    public String toJson(Integer id) {
+        return toJson(id,null);
+    }
+
+    @Override
+    public String toJson(Integer id, Project project) {
+        Resource resource = get(id);
+        List<Columns> columns = columnsService.get(project);
+        List<String> entries = new ArrayList<String>();
+        for(Columns column : columns){
+            ResourceDetails entry = resourceDetailsService.get(resource,column);
+            entries.add(entry.toEntry());
+        }
+        return resource.toJson(entries);
+    }
+
+    @Override
+    public String toJson(Resource resource) {
+        return toJson(resource,null);
+    }
+
+    @Override
+    public String toJson(Resource resource, Project project) {
+        List<Columns> columns = columnsService.get(project);
+        List<String> entries = new ArrayList<String>();
+        for(Columns column : columns){
+            ResourceDetails entry = resourceDetailsService.get(resource,column);
+            entries.add(entry.toEntry());
+        }
+        return resource.toJson(entries);
+    }
+
+    @Override
+    public String getAllJson() {
+        List<Resource> resources = getAll();
+        List<String> resourceJsons = new ArrayList<String>();
+        for(Resource resource : resources){
+            resourceJsons.add(toJson(resource,null));
+        }
+        return "[" + String.join("", resourceJsons) + "]";
+    }
+
+    @Override
+    public void clear() {
+        resourceRepository.deleteAll();
     }
 }

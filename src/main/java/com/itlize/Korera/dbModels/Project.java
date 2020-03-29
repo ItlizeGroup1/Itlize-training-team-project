@@ -16,7 +16,7 @@ public class Project {
     @GeneratedValue
     private Integer id;
 
-    @ManyToOne(targetEntity = User.class,cascade= CascadeType.ALL)
+    @ManyToOne(targetEntity = User.class)
     private User owner;
     private String projectName;
 
@@ -25,11 +25,11 @@ public class Project {
     @LastModifiedDate
     private Date lastUpdated;
 
-    @OneToMany(targetEntity = Columns.class,cascade = CascadeType.DETACH,mappedBy = "project")
+    @OneToMany(targetEntity = Columns.class,cascade = CascadeType.REMOVE,mappedBy = "project")
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<Columns> columns = new HashSet<Columns>();
 
-    @OneToMany(targetEntity = ProjectToResource.class, cascade = CascadeType.DETACH, mappedBy = "project")
+    @OneToMany(targetEntity = ProjectToResource.class,cascade = CascadeType.REMOVE, mappedBy = "project")
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<ProjectToResource> resources = new HashSet<ProjectToResource>();
 

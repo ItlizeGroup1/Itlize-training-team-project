@@ -9,6 +9,7 @@ import com.itlize.Korera.repositories.ResourceRepository;
 import com.itlize.Korera.services.ProjectToResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,7 @@ public class ProjectToResourceServiceImpl implements ProjectToResourceService {
     private ResourceRepository resourceRepository;
 
     @Override
+    @Transactional
     public boolean create(ProjectToResource projectToResource, Project project, Resource resource) {
         if(projectToResource==null || project==null || resource==null)
             return false;
@@ -44,11 +46,18 @@ public class ProjectToResourceServiceImpl implements ProjectToResourceService {
     }
 
     @Override
+    @Transactional
     public boolean delete(ProjectToResource projectToResource) {
+        if(projectToResource==null){
+            System.out.println("null input for deleting projectToResource");
+        }
+        System.out.println("deleting ptr: " +projectToResource.getId());
         try{
+
             projectToResourceRepository.delete(projectToResource);
         }catch (Exception e){
             System.out.println("Sth wrong happens when deleting " + projectToResource.toString());
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -76,5 +85,10 @@ public class ProjectToResourceServiceImpl implements ProjectToResourceService {
     @Override
     public List<ProjectToResource> get(Project project) {
         return projectToResourceRepository.findByProject(project);
+    }
+
+    @Override
+    public void clear() {
+        projectToResourceRepository.deleteAll();
     }
 }

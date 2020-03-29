@@ -12,6 +12,8 @@ public interface ResourceDetailsService {
     public boolean update(ResourceDetails resourceDetails);
     public boolean update(Resource resource, Columns column, String columnValue);
     public ResourceDetails get(Integer id);
+    public ResourceDetails get(Integer resourceId, Columns column);
     public ResourceDetails get(Resource resource, Columns column);
     public List<ResourceDetails> get(Resource resource);
+    public void clear();
 }

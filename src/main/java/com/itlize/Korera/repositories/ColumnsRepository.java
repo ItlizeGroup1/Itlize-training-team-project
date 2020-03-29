@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface ColumnsRepository extends JpaRepository<Columns,Integer> {
     public List<Columns> findByProjectAndColumnName(Project project, String columnName);
+    public List<Columns> findByProject(Project project);
 }

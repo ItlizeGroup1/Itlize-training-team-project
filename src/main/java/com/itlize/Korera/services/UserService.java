@@ -7,4 +7,5 @@ public interface UserService {
     public boolean delete(User user);
     public User get(String userName);
     public boolean update(String userName, User user);
+    public void clear();
 }

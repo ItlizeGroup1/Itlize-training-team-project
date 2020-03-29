@@ -14,10 +14,10 @@ public class ProjectToResource {
     @CreatedDate
     private Date time_created;
 
-    @ManyToOne(targetEntity = Project.class, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = Project.class,cascade = CascadeType.DETACH)
     private Project project;
 
-    @ManyToOne(targetEntity = Resource.class,cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = Resource.class,cascade = CascadeType.DETACH)
     private Resource resource;
 
     @Override

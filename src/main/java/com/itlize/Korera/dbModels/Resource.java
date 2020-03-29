@@ -23,11 +23,11 @@ public class Resource {
     @LastModifiedDate
     private Date lastUpdated;
 
-    @OneToMany(targetEntity = ProjectToResource.class,cascade = CascadeType.DETACH,mappedBy = "resource")
+    @OneToMany(targetEntity = ProjectToResource.class,cascade = CascadeType.REMOVE,mappedBy = "resource")
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<ProjectToResource> projects = new HashSet<ProjectToResource>();
 
-    @OneToMany(targetEntity = ResourceDetails.class,cascade = CascadeType.DETACH,mappedBy = "resource")
+    @OneToMany(targetEntity = ResourceDetails.class,cascade = CascadeType.REMOVE,mappedBy = "resource")
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<ResourceDetails> entries = new HashSet<ResourceDetails>();
 
@@ -76,11 +76,11 @@ public class Resource {
                 "id=" + id +
                 '}';
     }
-    public String toJson(List<ResourceDetails> colList){
+    public String toJson(List<String> entries){
         String ret = null;
         List<String> colsContent = new ArrayList<String>();
-        for( ResourceDetails rd : colList){
-            colsContent.add(rd.toEntry());
+        for( String entry : entries){
+            colsContent.add(entry);
         }
         ret = "{" + String.join(",",colsContent) + "}";
         return ret;

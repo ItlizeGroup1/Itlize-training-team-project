@@ -38,6 +38,7 @@ public class ProjectToResourceServiceImplTest {
 
     @Test
     public void delete() {
+        projectToResourceService.delete(projectToResourceService.get(10));
     }
 
     @Test

@@ -22,10 +22,21 @@ public class Columns {
     @LastModifiedDate
     private Date lastUpdated;
 
-    @ManyToOne(targetEntity = Project.class, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = Project.class,cascade = CascadeType.DETACH)
     private Project project;
 
-    @OneToMany(targetEntity = ResourceDetails.class, cascade = CascadeType.DETACH,mappedBy = "column")
+    @Override
+    public String toString() {
+        return "Columns{" +
+                "id=" + id +
+                ", project=" + project +
+                ", columnName='" + columnName + '\'' +
+                ", type=" + type +
+                ", formula='" + formula + '\'' +
+                '}';
+    }
+
+    @OneToMany(targetEntity = ResourceDetails.class,cascade = CascadeType.REMOVE,mappedBy = "column")
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<ResourceDetails> entries = new HashSet<ResourceDetails>();
 
@@ -61,16 +72,7 @@ public class Columns {
         entry.setColumn(null);
     }
 
-    @Override
-    public String toString() {
-        return "Columns{" +
-                "project=" + project +
-                ", columnName='" + columnName + '\'' +
-                '}';
-    }
-
-    public Columns(Project projectId, String columnName, ProjectColumnEnum type, String formula) {
-        this.project = projectId;
+    public Columns( String columnName, ProjectColumnEnum type, String formula) {
         this.columnName = columnName;
         this.type = type;
         this.formula = formula;

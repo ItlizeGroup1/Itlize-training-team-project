@@ -34,7 +34,7 @@ public class ResourceDetailsServiceImplTest {
 
     @Test
     public void create() {
-        Columns column = columnsService.get(new Integer(21));
+        Columns column = columnsService.get(40);
         Optional<Resource> resource = resourceRepository.findById(9);
         if(resource.isPresent()){
         ResourceDetails newRD = new ResourceDetails("colValue");
@@ -47,8 +47,8 @@ public class ResourceDetailsServiceImplTest {
 
     @Test
     public void delete() {
-        Columns column = columnsService.get(21);
-        Optional<Resource> resource = resourceRepository.findById(9);
+        Columns column = columnsService.get(5);
+        Optional<Resource> resource = resourceRepository.findById(6);
         if(resource.isPresent()){
             ResourceDetails rd = resourceDetailsService.get(resource.get(),column);
             boolean isSuccessful = resourceDetailsService.delete(rd);

@@ -28,10 +28,15 @@ class UserServiceImplTest {
 
     @Test
     void deleteUser() {
+        User user = userService.get("shabby1");
+        boolean a = userService.delete(user);
+        Assert.assertTrue(a);
     }
 
     @Test
     void getUser() {
+        User user = userService.get("shabby2");
+        Assert.assertTrue(user!=null);
     }
 
     @Test

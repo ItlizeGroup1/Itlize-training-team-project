@@ -2,12 +2,17 @@ package com.itlize.Korera.services.serviceImpl;
 
 import com.itlize.Korera.dbModels.Columns;
 import com.itlize.Korera.dbModels.Project;
+import com.itlize.Korera.dbModels.Resource;
+import com.itlize.Korera.dbModels.ResourceDetails;
 import com.itlize.Korera.repositories.ColumnsRepository;
 import com.itlize.Korera.repositories.ProjectRepository;
 import com.itlize.Korera.services.ColumnsService;
+import com.itlize.Korera.services.ResourceDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,12 +23,15 @@ public class ColumnsServiceImpl implements ColumnsService {
     private ColumnsRepository columnsRepository;
     @Autowired
     private ProjectRepository projectRepository;
+    @Autowired
+    private ResourceDetailsService resourceDetailsService;
 
     @Override
     public boolean create(Columns column) {
         Columns target = get(column.getProject(),column.getColumnName());
         if(target != null){
             System.out.println("Column exist!");
+            System.out.println(target.toString());
             return false;
         }
         try{
@@ -37,6 +45,10 @@ public class ColumnsServiceImpl implements ColumnsService {
 
     @Override
     public boolean create(Columns column, Project project) {
+        if(column==null){
+            System.out.println("null input!");
+            return false;
+        }
         Columns target = get(project,column.getColumnName());
         if(target != null){
             System.out.println("Column exist!");
@@ -44,20 +56,29 @@ public class ColumnsServiceImpl implements ColumnsService {
         }
         try{
             columnsRepository.save(column);
-            project.addColumns(column);
-            columnsRepository.save(column);
-            projectRepository.save(project);
-
+            if(project!=null) {
+                project.addColumns(column);
+                columnsRepository.save(column);
+                projectRepository.save(project);
+            }
         }catch (Exception e){
             System.out.println("Sth wrong happens when creating "+column.toString());
+            e.printStackTrace();
             return false;
         }
         return true;
     }
 
     @Override
+    @Transactional
     public boolean delete(Columns column) {
+        if(column==null){
+            System.out.println("deleting null column");
+            return false;
+        }
+        System.out.println("deleting column: " +column.getId());
         try{
+
             columnsRepository.delete(column);
         }catch (Exception e){
             System.out.println("Sth wrong happens when deleting "+column.toString());
@@ -78,6 +99,7 @@ public class ColumnsServiceImpl implements ColumnsService {
             columnsRepository.save(column);
         }catch (Exception e){
             System.out.println("Sth wrong happens when updating");
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -96,10 +118,25 @@ public class ColumnsServiceImpl implements ColumnsService {
 
     @Override
     public Columns get(Project project, String columnName) {
+
         List<Columns> res = columnsRepository.findByProjectAndColumnName(project,columnName);
+
         if(res.size()>0){
+            if(project!=null && res.get(0).getProject()==null){
+                return null;
+            }
             return res.get(0);
         }
         return null;
+    }
+
+    @Override
+    public List<Columns> get(Project project) {
+        return columnsRepository.findByProject(project);
+    }
+
+    @Override
+    public void clear() {
+        columnsRepository.deleteAll();
     }
 }

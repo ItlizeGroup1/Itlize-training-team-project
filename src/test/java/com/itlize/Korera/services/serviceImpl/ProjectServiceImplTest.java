@@ -25,7 +25,8 @@ public class ProjectServiceImplTest {
     @Test
     public void create() {
         Project toAdd = new Project();
-        User user = userService.get("shabby1");
+        User user = userService.get("shabby2");
+        toAdd.setProjectName("myProject");
         boolean isSuccessful = projectService.create(toAdd,user);
         Assert.assertTrue(isSuccessful);
 
@@ -33,7 +34,8 @@ public class ProjectServiceImplTest {
 
     @Test
     public void delete() {
-        Project toDelete = projectService.get(30);
+        Project toDelete = projectService.get(1);
+        System.out.println("deleting " + toDelete.getProjectName());
         boolean isSuccessful = projectService.delete(toDelete);
         Assert.assertTrue(isSuccessful);
     }

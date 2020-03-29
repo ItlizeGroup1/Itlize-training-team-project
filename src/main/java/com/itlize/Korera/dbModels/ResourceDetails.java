@@ -17,10 +17,10 @@ public class ResourceDetails {
     @LastModifiedDate
     private Date lastUpdated;
 
-    @ManyToOne(targetEntity = Resource.class,cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = Resource.class,cascade = CascadeType.DETACH)
     private Resource resource;
 
-    @ManyToOne(targetEntity = Columns.class, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = Columns.class,cascade = CascadeType.DETACH)
     private Columns column;
 
     private String columnValue;
