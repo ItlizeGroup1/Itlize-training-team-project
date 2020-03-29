@@ -12,6 +12,7 @@ public interface ColumnsService {
     public boolean update(Columns column, String newColumnName);
     public Columns get(Integer id);
     public Columns get(Project project, String columnName);
-    public List<Columns> get(Project project);
+    public List<Columns> getByProject(Project project);
+    public String getColumnsJson(Project project);
     public void clear();
 }

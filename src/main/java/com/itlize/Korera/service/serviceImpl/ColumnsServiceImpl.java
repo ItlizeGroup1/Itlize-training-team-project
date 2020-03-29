@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -127,8 +128,31 @@ public class ColumnsServiceImpl implements ColumnsService {
     }
 
     @Override
-    public List<Columns> get(Project project) {
+    public List<Columns> getByProject(Project project) {
         return columnsRepository.findByProject(project);
+    }
+
+    @Override
+    public String getColumnsJson(Project project) {
+        List<String> columnNames = new ArrayList<String>();
+
+        List<Columns> columns = getByProject(null);
+        for(Columns column:columns){
+            columnNames.add( String.format("{" +
+                    "\"columnName:\":\"%s\"," +
+                    "\"id\":\"%d\"," +
+                    "\"type\":\"%s\"," +
+                    "\"formula\":\"%s\"}",column.getColumnName(),column.getId(),column.getType(),column.getFormula()));
+        }
+        columns = getByProject(project);
+        for(Columns column:columns){
+            columnNames.add( String.format("{" +
+                    "\"columnName:\":\"%s\"," +
+                    "\"id\":\"%d\"," +
+                    "\"type\":\"%s\"," +
+                    "\"formula\":\"%s\"}",column.getColumnName(),column.getId(),column.getType(),column.getFormula()));
+        }
+        return "[" + String.join(",",columnNames) + "]";
     }
 
     @Override

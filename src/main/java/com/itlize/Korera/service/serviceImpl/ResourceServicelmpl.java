@@ -93,7 +93,10 @@ public class ResourceServicelmpl implements ResourceService {
     @Override
     public String toJson(Integer id, Project project) {
         Resource resource = get(id);
-        List<Columns> columns = columnsService.get(project);
+        List<Columns> columns = columnsService.getByProject(null);
+        if(project!=null){
+            columns.addAll(columnsService.getByProject(project));
+        }
         List<String> entries = new ArrayList<String>();
         for(Columns column : columns){
             ResourceDetails entry = resourceDetailsService.get(resource,column);
@@ -109,11 +112,15 @@ public class ResourceServicelmpl implements ResourceService {
 
     @Override
     public String toJson(Resource resource, Project project) {
-        List<Columns> columns = columnsService.get(project);
+        List<Columns> columns = columnsService.getByProject(null);
+        if(project!=null){
+            columns.addAll(columnsService.getByProject(project));
+        }
         List<String> entries = new ArrayList<String>();
         for(Columns column : columns){
             ResourceDetails entry = resourceDetailsService.get(resource,column);
-            entries.add(entry.toEntry());
+            if(entry!=null)
+                entries.add(entry.toEntry());
         }
         return resource.toJson(entries);
     }
@@ -125,7 +132,7 @@ public class ResourceServicelmpl implements ResourceService {
         for(Resource resource : resources){
             resourceJsons.add(toJson(resource,null));
         }
-        return "[" + String.join("", resourceJsons) + "]";
+        return "[" + String.join(",", resourceJsons) + "]";
     }
 
     @Override
