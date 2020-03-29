@@ -1,12 +1,11 @@
 package com.itlize.Korera.dbModels;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import java.sql.Date;
+
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -15,88 +14,25 @@ public class Resource {
     @Id
     @GeneratedValue
     private Integer id;
+    private Integer rCode;
+    private String resourceName;
 
-    @CreatedDate
-    private Date timeCreated;
-    @LastModifiedDate
-    private Date lastUpdated;
-
-    @OneToMany(targetEntity = ProjectResource.class,cascade = CascadeType.DETACH,mappedBy = "resourceId")
+    @JsonIgnore
+    @OneToMany(targetEntity = ProjectResource.class,cascade = CascadeType.REMOVE,mappedBy = "resourceId")
     @LazyCollection(LazyCollectionOption.FALSE)
-    private Collection<ProjectResource> projectResources = new HashSet<ProjectResource>();
+    private Collection<ProjectResource> projects = new HashSet<ProjectResource>();
 
-    @OneToMany(targetEntity = ResourceDetails.class,cascade = CascadeType.PERSIST,mappedBy = "resource")
+    @JsonIgnore
+    @OneToMany(targetEntity = ResourceDetails.class,cascade = CascadeType.REMOVE,mappedBy = "resource")
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<ResourceDetails> entries = new HashSet<ResourceDetails>();
 
-    @OneToMany(targetEntity = ResourceColumns.class,cascade = CascadeType.DETACH,mappedBy = "resource")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private Collection<ResourceColumns> columns = new HashSet<ResourceColumns>();
-
-    public Collection<ResourceColumns> getColumns() {
-        return columns;
-    }
-
-    public void addColumns(ResourceColumns column){
-        if(columns.contains(column)){
-            return ;
-        }
-        columns.add(column);
-        column.setResource(this);
-    }
-
-    public void removeColumns(ResourceColumns column){
-        if(!columns.contains(column)){
-            return ;
-        }
-        columns.remove(column);
-        column.setResource(null);
-    }
-
-    public Collection<ResourceDetails> getEntries() {
-        return entries;
-    }
-
-    public void addEntries(ResourceDetails entry){
-        if(entries.contains(entry)){
-            return;
-        }
-        entries.add(entry);
-        entry.setResource(this);
-    }
-    public void removeEntrie(ResourceDetails entry){
-        if(!entries.contains(entry)){
-            return;
-        }
-        entries.remove(entry);
-        entry.setResource(null);
-    }
-
-    public Collection<ProjectResource> getProjects() {
-        return projectResources;
-    }
-
-//    public void addProjects(ProjectResource project) {
-//        if(projects.contains(project))
-//        projects.add(project);
-//        project.setResourceId(this);
-//    }
-//    public void removeProjects(ProjectResource project){
-//        if(!projects.contains(project)){
-//            return;
-//        }
-//        projects.remove(project);
-//        project.setResourceId(null);
-//    }
-
-    @Override
-    public String toString() {
-        return "Resource{" +
-                "id=" + id +
-                '}';
-    }
 
     public Resource() {
+    }
+    public Resource(Integer rCode,String rname){
+        this.rCode=rCode;
+        resourceName=rname;
     }
 
     public Integer getId() {
@@ -107,19 +43,35 @@ public class Resource {
         this.id = id;
     }
 
-    public Date getTimeCreated() {
-        return timeCreated;
+    public String getResourceName() {
+        return resourceName;
     }
 
-    public void setTimeCreated(Date timeCreated) {
-        this.timeCreated = timeCreated;
+    public void setResourceName(String resourceName) {
+        this.resourceName = resourceName;
     }
 
-    public Date getLastUpdated() {
-        return lastUpdated;
+    public Collection<ProjectResource> getProjects() {
+        return projects;
     }
 
-    public void setLastUpdated(Date lastUpdated) {
-        this.lastUpdated = lastUpdated;
+    public void setProjects(Collection<ProjectResource> projects) {
+        this.projects = projects;
+    }
+
+    public Collection<ResourceDetails> getEntries() {
+        return entries;
+    }
+
+    public void setEntries(Collection<ResourceDetails> entries) {
+        this.entries = entries;
+    }
+
+    public Integer getrCode() {
+        return rCode;
+    }
+
+    public void setrCode(Integer rCode) {
+        this.rCode = rCode;
     }
 }

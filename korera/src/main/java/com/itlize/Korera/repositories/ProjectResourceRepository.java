@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface ProjectResourceRepository extends JpaRepository<ProjectResource, Integer> {
     List<ProjectResource> findAllByProjectId(Project projectId);
-
 }

@@ -6,11 +6,8 @@ import com.itlize.Korera.dbModels.ResourceDetails;
 import java.util.List;
 
 public interface ResourceDetailsService {
-    public boolean create(ResourceDetails resourceDetails, Resource resource) ;
-    public boolean delete(ResourceDetails resourceDetails);
-    public boolean update(ResourceDetails resourceDetails);
-    public boolean update(Resource resource, String columnName, String columnValue);
-    public ResourceDetails get(Integer id);
-    public ResourceDetails get(Resource resource, String columnName);
-    public List<ResourceDetails> get(Resource resource);
+    String create(Integer rid, String columnName, String columnValue);
+    String deleteCol(String columnName);
+    String update(Integer rdid, String columnValue);
+    List<ResourceDetails> getAll();
 }

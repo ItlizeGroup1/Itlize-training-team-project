@@ -16,10 +16,6 @@ public class User {
     @Id
     private String userName;
 
-    @CreatedDate
-    private Date timeCreated;
-    @LastModifiedDate
-    private Date lastUpdated;
     @JsonIgnore
     @OneToMany(targetEntity = Project.class,cascade = CascadeType.REMOVE,mappedBy = "owner")
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -89,19 +85,4 @@ public class User {
         this.title = title;
     }
 
-    public Date getTimeCreated() {
-        return timeCreated;
-    }
-
-    public void setTimeCreated(Date timeCreated) {
-        this.timeCreated = timeCreated;
-    }
-
-    public Date getLastUpdated() {
-        return lastUpdated;
-    }
-
-    public void setLastUpdated(Date lastUpdated) {
-        this.lastUpdated = lastUpdated;
-    }
 }

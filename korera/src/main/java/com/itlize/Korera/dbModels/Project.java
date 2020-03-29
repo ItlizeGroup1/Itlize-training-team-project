@@ -19,10 +19,6 @@ public class Project {
 
     private String projectName;
 
-    @CreatedDate
-    private Date timeCreated;
-    @LastModifiedDate
-    private Date lastUpdated;
 
     @ManyToOne(targetEntity = User.class,cascade= CascadeType.DETACH)
     private User owner;

@@ -12,12 +12,7 @@ public class ResourceDetails {
     @GeneratedValue
     private Integer id;
 
-    @CreatedDate
-    private Date timeCreated;
-    @LastModifiedDate
-    private Date lastUpdated;
-
-    @ManyToOne(targetEntity = Resource.class,cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = Resource.class,cascade = CascadeType.DETACH)
     private Resource resource;
 
     private String columnName;
@@ -26,42 +21,10 @@ public class ResourceDetails {
     public ResourceDetails() {
     }
 
-    @Override
-    public String toString() {
-        return "ResourceDetails{" +
-                "resource=" + resource +
-                ", columnName='" + columnName + '\'' +
-                ", columnValue='" + columnValue + '\'' +
-                '}';
-    }
-
-    public ResourceDetails(String columnName, String columnValue) {
+    public ResourceDetails(Resource resource, String columnName, String columnValue) {
+        this.resource=resource;
         this.columnName = columnName;
         this.columnValue = columnValue;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Date getTimeCreated() {
-        return timeCreated;
-    }
-
-    public void setTimeCreated(Date timeCreated) {
-        this.timeCreated = timeCreated;
-    }
-
-    public Date getLastUpdated() {
-        return lastUpdated;
-    }
-
-    public void setLastUpdated(Date lastUpdated) {
-        this.lastUpdated = lastUpdated;
     }
 
     public Resource getResource() {

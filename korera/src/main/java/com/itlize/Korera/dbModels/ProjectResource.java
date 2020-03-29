@@ -12,12 +12,9 @@ public class ProjectResource {
     @GeneratedValue
     private Integer id;
 
-    @CreatedDate
-    private Date time_created;
-    @JsonIgnore
     @ManyToOne(targetEntity = Project.class, cascade = CascadeType.DETACH)
     private Project projectId;
-    @JsonIgnore
+
     @ManyToOne(targetEntity = Resource.class,cascade = CascadeType.DETACH)
     private Resource resourceId;
 
@@ -34,14 +31,6 @@ public class ProjectResource {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Date getTime_created() {
-        return time_created;
-    }
-
-    public void setTime_created(Date time_created) {
-        this.time_created = time_created;
     }
 
     public Project getProjectId() {

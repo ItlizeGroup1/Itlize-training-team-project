@@ -2,8 +2,11 @@ package com.itlize.Korera.services;
 
 import com.itlize.Korera.dbModels.Resource;
 
+import java.util.List;
+
 public interface ResourceService {
-    public boolean create(Resource resource);
-    public boolean delete(Resource resource);
-    public Resource get(Integer id);
+    String create(Integer rCode, String resourceName);
+    String delete(Integer rid);
+    List<Resource> getAll();
+    String updateByRid(Integer rid,Integer rCode, String resourceName);
 }
