@@ -1,5 +1,6 @@
 package com.itlize.Korera.dbModels;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.annotation.CreatedDate;
@@ -35,7 +36,7 @@ public class Columns {
                 ", formula='" + formula + '\'' +
                 '}';
     }
-
+    @JsonIgnore
     @OneToMany(targetEntity = ResourceDetails.class,cascade = CascadeType.REMOVE,mappedBy = "column")
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<ResourceDetails> entries = new HashSet<ResourceDetails>();
@@ -79,6 +80,10 @@ public class Columns {
     }
 
     public Columns() {
+    }
+
+    public Columns(String columnName) {
+        this.columnName = columnName;
     }
 
     public Columns(Project projectId, String columnName) {

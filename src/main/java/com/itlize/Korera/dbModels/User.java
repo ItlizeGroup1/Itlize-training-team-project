@@ -1,6 +1,7 @@
 package com.itlize.Korera.dbModels;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -30,7 +31,7 @@ public class User {
     private String password;
 
     @CreatedDate
-    private Date timeCreat;
+    private Date timeCreate;
 
     @LastModifiedDate
     private Date lastUpdated;
@@ -44,6 +45,7 @@ public class User {
     @Transient
     private String token;
 
+    @JsonIgnore
     @OneToMany(targetEntity = Project.class,cascade = CascadeType.REMOVE,mappedBy = "owner")
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<Project> projects = new HashSet<Project>();
@@ -92,12 +94,12 @@ public class User {
         this.password = password;
     }
 
-    public Date getTimeCreat() {
-        return timeCreat;
+    public Date getTimeCreate() {
+        return timeCreate;
     }
 
-    public void setTimeCreat(Date timeCreat) {
-        this.timeCreat = timeCreat;
+    public void setTimeCreate(Date timeCreate) {
+        this.timeCreate = timeCreate;
     }
 
     public Date getLastUpdated() {

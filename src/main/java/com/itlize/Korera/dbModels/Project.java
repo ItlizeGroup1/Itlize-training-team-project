@@ -1,5 +1,6 @@
 package com.itlize.Korera.dbModels;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.annotation.CreatedDate;
@@ -25,10 +26,12 @@ public class Project {
     @LastModifiedDate
     private Date lastUpdated;
 
+    @JsonIgnore
     @OneToMany(targetEntity = Columns.class,cascade = CascadeType.REMOVE,mappedBy = "project")
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<Columns> columns = new HashSet<Columns>();
 
+    @JsonIgnore
     @OneToMany(targetEntity = ProjectToResource.class,cascade = CascadeType.REMOVE, mappedBy = "project")
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<ProjectToResource> resources = new HashSet<ProjectToResource>();
