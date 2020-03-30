@@ -50,4 +50,12 @@ public class ResourceDetails {
     public void setColumnValue(String columnValue) {
         this.columnValue = columnValue;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

@@ -5,11 +5,11 @@ import com.itlize.Korera.dbModels.ResourceDetails;
 import com.itlize.Korera.repositories.ResourceDetailsRepository;
 import com.itlize.Korera.repositories.ResourceRepository;
 import com.itlize.Korera.services.ResourceDetailsService;
-import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,7 +62,22 @@ public class ResourceDetailsServiceImpl implements ResourceDetailsService {
 
     }
     @Override
-    public List<ResourceDetails> getAll(){
-        return resourceDetailsRepository.findAll();
+    public List<Object> getAll(){
+        try {
+            List<Object> list = new ArrayList<>();
+            for (ResourceDetails i : resourceDetailsRepository.findAll()) {
+                ArrayList<Object> obj = new ArrayList<>();
+                obj.add(i.getResource().getId());
+                obj.add(i.getResource().getrCode());
+                obj.add(i.getResource().getResourceName());
+                obj.add(i.getColumnName());
+                obj.add(i.getColumnValue());
+                list.add(obj);
+            }
+            return list;
+        }catch (Exception e){
+            e.getStackTrace();
+            return null;
+        }
     }
 }

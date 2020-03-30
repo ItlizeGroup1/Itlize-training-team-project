@@ -9,5 +9,5 @@ public interface ResourceDetailsService {
     String create(Integer rid, String columnName, String columnValue);
     String deleteCol(String columnName);
     String update(Integer rdid, String columnValue);
-    List<ResourceDetails> getAll();
+    List<Object> getAll();
 }

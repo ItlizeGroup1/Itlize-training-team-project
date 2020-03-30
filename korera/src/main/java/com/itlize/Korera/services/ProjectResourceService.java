@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ProjectResourceService {
     String create(Integer pid,Integer rid);
-    List<ProjectResource> readByProject(Integer pid);
+    List<Resource> readByProject(Integer pid);
     String update(Integer prid, Integer rid);
     String delete(Integer prid);
 
