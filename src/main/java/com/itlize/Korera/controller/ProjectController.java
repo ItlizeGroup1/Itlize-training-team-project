@@ -32,6 +32,19 @@ public class ProjectController {
         return userService.findByUsername(authenticationToken.getName());
     }
 
+    @PostMapping("/addProject")
+    public ResponseEntity<?> addProject(Principal principal,
+                                        @RequestParam(name="projectName") String projectName){
+        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
+        User user = userService.findByUsername(authenticationToken.getName());
+        Project projectToAdd = new Project();
+        projectToAdd.setProjectName(projectName);
+        boolean isSuccessful = projectService.create(projectToAdd,user);
+        if(!isSuccessful){
+            return new ResponseEntity<>("{\"error\":\"sth wrong happens when creating new project!\"}",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(projectToAdd,HttpStatus.OK);
+    }
 
 
 
