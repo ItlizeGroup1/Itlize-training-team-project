@@ -2,8 +2,10 @@ package com.itlize.Korera.controller;
 
 
 
+import com.itlize.Korera.dbModels.Project;
 import com.itlize.Korera.dbModels.Role;
 import com.itlize.Korera.dbModels.User;
+import com.itlize.Korera.service.ProjectService;
 import com.itlize.Korera.service.UserService;
 import com.itlize.Korera.utils.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ProjectService projectService;
 
 
     @PostMapping("/register")

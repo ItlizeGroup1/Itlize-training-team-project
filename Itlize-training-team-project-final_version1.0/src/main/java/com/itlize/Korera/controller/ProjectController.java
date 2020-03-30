@@ -32,8 +32,32 @@ public class ProjectController {
         return userService.findByUsername(authenticationToken.getName());
     }
 
+    @PostMapping("/addProject")
+    public ResponseEntity<?> addProject(Principal principal,
+                                        @RequestParam(name="projectName") String projectName){
+        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
+        User user = userService.findByUsername(authenticationToken.getName());
+        Project projectToAdd = new Project();
+        projectToAdd.setProjectName(projectName);
+        boolean isSuccessful = projectService.create(projectToAdd,user);
+        if(!isSuccessful){
+            return new ResponseEntity<>("{\"error\":\"sth wrong happens when creating new project!\"}",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(projectToAdd,HttpStatus.OK);
+    }
 
-
+    @PostMapping("/deleteProject")
+    public ResponseEntity<?> deleteProject(Principal principal,
+                                           @RequestParam(name="projectId") Integer projectId){
+        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
+        User user = userService.findByUsername(authenticationToken.getName());
+        Project projectToDelete=projectService.get(projectId);
+        boolean isSuccessful=projectService.delete(projectToDelete);
+        if(!isSuccessful){
+            return new ResponseEntity<>("{\"error\":\"sth wrong happens when deleting project!\"}",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(projectToDelete,HttpStatus.OK);
+    }
 
     @GetMapping("/read")
     public ResponseEntity<?> read(Principal principal,
