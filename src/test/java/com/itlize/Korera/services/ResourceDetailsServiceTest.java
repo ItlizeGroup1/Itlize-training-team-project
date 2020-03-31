@@ -29,8 +29,8 @@ public class ResourceDetailsServiceTest {
 
     @Test
     public void createBasicDB() {
-        User user = new User("shabby","admin","123");
-        User user1 = new User("shabby1","admin","123");
+        User user = new User("shabby1","admin","123");
+        User user1 = new User("shabby2","admin","123");
         userService.create(user);
         userService.create(user1);
 

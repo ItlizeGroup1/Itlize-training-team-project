@@ -138,6 +138,4 @@ public class ResourceDetailsServiceImpl implements ResourceDetailsService {
     public void clear() {
         resourceDetailsRepository.deleteAll();
     }
-
-
 }

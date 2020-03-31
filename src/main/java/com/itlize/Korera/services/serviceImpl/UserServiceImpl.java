@@ -6,6 +6,7 @@ import com.itlize.Korera.repositories.UserRepository;
 import com.itlize.Korera.services.ProjectService;
 import com.itlize.Korera.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,11 +15,31 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@javax.transaction.Transactional
 public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
     @Autowired
     ProjectService projectService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Override
+    public User saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username).orElse(null);
+    }
+
+    @Override
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
+    }
+
 
     @Override
     public boolean create(User user) {
@@ -37,16 +58,16 @@ public class UserServiceImpl implements UserService {
         if(user==null){
             return false;
         }
-        System.out.println("deleting user: " +user.getUserName());
+        System.out.println("deleting user: " +user.getUsername());
 
         userRepository.delete(user);
         return true;
     }
 
     @Override
-    public User get(String userName) {
+    public User get(String username) {
 
-        Optional<User> a= userRepository.findById(userName);
+        Optional<User> a= userRepository.findById(username);
         if(a.isPresent()){
             return a.get();
         }
@@ -54,9 +75,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean update(String userName, User user) {
-        User toUpdate = userRepository.getOne(userName);
-        toUpdate.setUserName(user.getUserName());
+    public boolean update(String username, User user) {
+        User toUpdate = userRepository.getOne(username);
+        toUpdate.setUsername(user.getUsername());
         toUpdate.setTitle(user.getTitle());
         toUpdate.setPassword(user.getPassword());
         try{

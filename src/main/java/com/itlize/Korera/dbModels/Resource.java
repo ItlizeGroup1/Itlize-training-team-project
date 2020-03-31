@@ -1,17 +1,20 @@
 package com.itlize.Korera.dbModels;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 public class Resource {
     @Id
@@ -24,10 +27,12 @@ public class Resource {
     private Date lastUpdated;
 
     @OneToMany(targetEntity = ProjectToResource.class,cascade = CascadeType.REMOVE,mappedBy = "resource")
+    @JsonIgnore
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<ProjectToResource> projects = new HashSet<ProjectToResource>();
 
     @OneToMany(targetEntity = ResourceDetails.class,cascade = CascadeType.REMOVE,mappedBy = "resource")
+    @JsonIgnore
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<ResourceDetails> entries = new HashSet<ResourceDetails>();
 
@@ -83,7 +88,7 @@ public class Resource {
             colsContent.add(entry);
         }
         ret = "{" + String.join(",",colsContent) + "}";
-        return ret;
+        return String.format("{\"resourceId\": \"%d\", \"content\": \"%s\"}", getId(),ret);
     }
 
     public Resource() {

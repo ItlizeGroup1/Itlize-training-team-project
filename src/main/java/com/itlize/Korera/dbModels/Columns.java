@@ -1,15 +1,18 @@
 package com.itlize.Korera.dbModels;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Collection;
 import java.util.HashSet;
 
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 public class Columns {
 
@@ -37,6 +40,7 @@ public class Columns {
     }
 
     @OneToMany(targetEntity = ResourceDetails.class,cascade = CascadeType.REMOVE,mappedBy = "column")
+    @JsonIgnore
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<ResourceDetails> entries = new HashSet<ResourceDetails>();
 
@@ -83,6 +87,10 @@ public class Columns {
 
     public Columns(Project projectId, String columnName) {
         this.project = projectId;
+        this.columnName = columnName;
+    }
+
+    public Columns(String columnName) {
         this.columnName = columnName;
     }
 

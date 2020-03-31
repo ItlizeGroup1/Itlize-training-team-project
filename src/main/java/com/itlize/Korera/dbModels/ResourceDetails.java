@@ -2,10 +2,12 @@ package com.itlize.Korera.dbModels;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 public class ResourceDetails {
     @Id
